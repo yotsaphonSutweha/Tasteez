@@ -60,6 +60,8 @@ $container['MealsAPIController'] = function($container) {
 };
 
 
+
+
 $app->group('/api', function() {
 
   $this->group('/meals', function() {
@@ -83,6 +85,7 @@ $app->group('/api', function() {
 $container['HomeController'] = function($container) {
   return new \Tasteez\Controllers\Home($container);
 };
+
 
 $app->get('/', 'HomeController');
 
