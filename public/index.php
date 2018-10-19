@@ -86,8 +86,19 @@ $container['HomeController'] = function($container) {
   return new \Tasteez\Controllers\Home($container);
 };
 
+$container['DiscoverController'] = function($container) {
+  return new \Tasteez\Controllers\Discover($container);
+};
+
+$container['RecipeController'] = function($container) {
+  return new \Tasteez\Controllers\Recipe($container);
+};
+
+
+
 
 $app->get('/', 'HomeController');
-
+$app->get('/discover', 'DiscoverController');
+$app->get('/recipe', 'RecipeController');
 
 $app->run();
