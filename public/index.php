@@ -92,8 +92,8 @@ $container['RecipeController'] = function($container) {
 
 
 $app->get('/', 'DiscoverController');
-$app->get('/discover', 'DiscoverController');
-$app->get('/recipe', 'RecipeController');
+$app->get('discover', 'DiscoverController');
+$app->get('recipe', 'RecipeController');
 
 
 $app->run();
