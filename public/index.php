@@ -3,15 +3,15 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 
-use Leafo\ScssPhp\Compiler;
+// use Leafo\ScssPhp\Compiler;
 
 // Compile Sass
-$scss = new Compiler();
-$scss->setImportPaths('../app/sass/');
-$css = $scss->compile(file_get_contents('../app/sass/index.scss'));
-$css_file = './stylesheets/index.css';
-$handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
-fwrite($handle, $css);
+// $scss = new Compiler();
+// $scss->setImportPaths('../app/sass/');
+// $css = $scss->compile(file_get_contents('../app/sass/index.scss'));
+// $css_file = './stylesheets/index.css';
+// $handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
+// fwrite($handle, $css);
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -51,16 +51,12 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-
 // API Routes
 //=============================
 
 $container['MealsAPIController'] = function($container) {
   return new \Tasteez\Controllers\Api\Meals($container);
 };
-
-
-
 
 $app->group('/api', function() {
 
@@ -93,8 +89,6 @@ $container['DiscoverController'] = function($container) {
 $container['RecipeController'] = function($container) {
   return new \Tasteez\Controllers\Recipe($container);
 };
-
-
 
 
 $app->get('/', 'HomeController');
