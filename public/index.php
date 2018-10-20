@@ -94,10 +94,15 @@ $container['RecommendedController'] = function($container) {
   return new \Tasteez\Controllers\Recommended($container);
 };
 
+$container['CategoriesController'] = function($container) {
+  return new \Tasteez\Controllers\Categories($container);
+};
+
 
 $app->get('/', 'HomeController');
 $app->get('/discover', 'DiscoverController');
 $app->get('/recipe', 'RecipeController');
 $app->get('/recommended', 'RecommendedController');
+$app->get('/categories', 'CategoriesController');
 
 $app->run();
