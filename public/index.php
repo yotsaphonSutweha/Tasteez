@@ -98,6 +98,6 @@ $container['RecommendedController'] = function($container) {
 $app->get('/', 'HomeController');
 $app->get('/discover', 'DiscoverController');
 $app->get('/recipe', 'RecipeController');
-
+$app->get('/recommended', 'RecommendedController');
 
 $app->run();
