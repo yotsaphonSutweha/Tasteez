@@ -102,6 +102,10 @@ $container['CategoriesController'] = function($container) {
   return new \Tasteez\Controllers\MostPopular($container);
 };
 
+$container['CategoryController'] = function($container) {
+  return new \Tasteez\Controllers\Category($container);
+};
+
 
 
 $app->get('/', 'HomeController');
@@ -110,4 +114,5 @@ $app->get('/recipe', 'RecipeController');
 $app->get('/recommended', 'RecommendedController');
 $app->get('/categories', 'CategoriesController');
 $app->get('/most-popular', 'MostPopularController');
+$app->get('/category', 'CategoryController');
 $app->run();
