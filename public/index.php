@@ -98,7 +98,7 @@ $container['CategoriesController'] = function($container) {
   return new \Tasteez\Controllers\Categories($container);
 };
 
-$container['CategoriesController'] = function($container) {
+$container['MostPopularController'] = function($container) {
   return new \Tasteez\Controllers\MostPopular($container);
 };
 
@@ -110,6 +110,9 @@ $container['PrivacyPolicyController'] = function($container) {
   return new \Tasteez\Controllers\PrivacyPolicy($container);
 };
 
+$container['CategoryController'] = function($container) {
+  return new \Tasteez\Controllers\Category($container);
+};
 
 
 $app->get('/', 'HomeController');
@@ -120,4 +123,5 @@ $app->get('/categories', 'CategoriesController');
 $app->get('/most-popular', 'MostPopularController');
 $app->get('/category', 'CategoryController');
 $app->get('/privacy-policy', 'PrivacyPolicyController');
+$app->get('/account', 'AccountController');
 $app->run();
