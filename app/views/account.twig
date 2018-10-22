@@ -1,0 +1,41 @@
+{% set title = 'Account' %}
+
+{% extends './templates/nosidebar.twig' %}
+
+{% block main %}
+  <h2 class="title">User Account</h2>
+  
+    <style media="screen">
+      .account .input {
+        border: 1px solid #f5f5f5;
+      }
+      .account .button {
+        width: auto;
+        font-size: 15px;
+        padding: .7em 1em;
+      }
+    </style>
+    
+    <form class="form" action="/account/update-email" method="post">
+      <div class="box">
+        <h3 class="h4">Update Email</h3>
+        <form class="form" action="index.html" method="post">
+          <div class="input">
+            <input placeholder="New Email" class="input__input" type="text" name="email" value="">
+          </div>
+          <button class="button" type="submit" >Update Email</button>
+        </form>
+      </div>
+    </form>
+    {# Change HTML to post to the route specified in index.php #}
+    <div class="box">
+      <h3 class="h4">Update Password</h3>
+      <form class="form" action="index.html" method="post">
+        <div class="input">
+          <input placeholder="New Password" class="input__input" type="text" name="password" value="">
+        </div>
+        <input class="button" type="button" name="" value="Update Password">
+      </form>
+    </div>
+
+{% endblock %}
