@@ -3,5 +3,34 @@
 {% extends './templates/nosidebar.twig' %}
 
 {% block main %}
- 
+     <h2 class="title">Contact</h2>
+    <style media="screen">
+      textarea {
+        border: none;
+        color: #ccc;
+        padding: 1em;
+      }
+    </style>
+
+    <form class="form" action="index.html" method="post">
+        <div class="input">
+          <span class="input__icon">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input placeholder="Name" class="input__input" type="text" name="" value="">
+        </div>
+
+        <div class="input">
+          <span class="input__icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input placeholder="Email" class="input__input" type="text" name="" value="">
+        </div>
+
+        <div class="input">
+          <textarea name="name" rows="8" cols="80">Leave a Message</textarea>
+        </div>
+
+        <input class="button" type="button" name="" value="Submit">
+    </form>
 {% endblock %}
