@@ -110,8 +110,8 @@ $container['PrivacyPolicyController'] = function($container) {
   return new \Tasteez\Controllers\PrivacyPolicy($container);
 };
 
-$container['CategoryController'] = function($container) {
-  return new \Tasteez\Controllers\Category($container);
+$container['AccountController'] = function($container) {
+  return new \Tasteez\Controllers\Account($container);
 };
 
 
