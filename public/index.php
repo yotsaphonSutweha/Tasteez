@@ -115,7 +115,7 @@ $container['AccountController'] = function($container) {
 };
 
 $container['FavouriteController'] = function($container) {
-  return new \Tasteez\Controllers\Favourite($container);
+  return new \Tasteez\Controllers\Favourites($container);
 };
 
 $app->get('/', 'HomeController');
@@ -127,5 +127,5 @@ $app->get('/most-popular', 'MostPopularController');
 $app->get('/category', 'CategoryController');
 $app->get('/privacy-policy', 'PrivacyPolicyController');
 $app->get('/account', 'AccountController');
-$app->get('/favourite', 'FavouriteController');
+$app->get('/favourites', 'FavouriteController');
 $app->run();

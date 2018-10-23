@@ -3,11 +3,11 @@
 namespace Tasteez\Controllers;
 
 
-class Home extends Controller
+class Favourites extends Controller
 {
   function __invoke($request, $response) {
     $meal = new \Tasteez\Models\Meal($this->container->db);
     $meals = $meal->findAll();
-    return $this->container->view->render($response, 'home.twig', ["meals" => $meals]);
+    return $this->container->view->render($response, 'favourites.twig', ["favouriteMeals" => $meals]);
   }
 }
