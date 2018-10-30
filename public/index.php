@@ -127,6 +127,11 @@ $container['SearchController'] = function($container) {
 };
 
 
+$container['RegisterController'] = function($container) {
+  return new \Tasteez\Controllers\Register($container);
+};
+
+
 $app->get('/', 'HomeController');
 $app->get('/discover', 'DiscoverController');
 $app->get('/recipe', 'RecipeController');
@@ -139,4 +144,6 @@ $app->get('/account', 'AccountController');
 $app->get('/favourites', 'FavouriteController');
 $app->get('/contact', 'ContactController');
 $app->get('/search', 'SearchController');
+$app->get('/register', 'RegisterController');
+
 $app->run();
