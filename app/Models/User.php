@@ -2,7 +2,7 @@
 
 namespace Tasteez\Models;
 
-class User extends Base
+class User extends Model
 {
 
   protected $db;
