@@ -18,7 +18,7 @@ class Meal extends Controller {
   }
 
   public function mostPopular($request, $response, $args) {
-    $meals = $this->meal->findAll();
+    $meals = $this->meal->popular();
     return $this->view->render($response, 'mostpopular.twig', [
       "mostPopularMeals" => $meals,
     ]);
