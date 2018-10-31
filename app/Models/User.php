@@ -1,24 +1,14 @@
 <?php
 
 namespace Tasteez\Models;
-
+use PDO;
 class User extends Model
 {
 
-  protected $db;
+  public $db;
   public $username;
   public $email;
   public $password;
-
-  // public function __construct(PDO $db)
-  // {
-  //     $this->db = $db;
-  // }
-
-  //findAll
-  //findById
-  //findByCol
-
 
   public function validate()
   {
@@ -40,8 +30,7 @@ class User extends Model
     return $this->findByName($username, $email) > 1;
   }
 
-    public function createNew($username, $email, $password)
-  {
+  public function createNew($username, $email, $password) {
     $stmt = $this->db->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password);');
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);

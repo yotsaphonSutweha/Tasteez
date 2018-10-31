@@ -4,6 +4,22 @@
 
 {% block main %}
     <h2 class="title">Register</h2>
+    {% if errors is defined %}
+      {% for error in errors %}
+          <div class="message message--error">
+            <p class="message__content">{{ error }}</p>
+          </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if registered %}
+    <div class="message message--success">
+      <p class="message__content">
+        Thank you for registering. <a href="/auth/login">Go to Login</a>.
+      </p>
+    </div>
+    {% endif %}
+
     <form class="form" action="/auth/register" method="post">
         <div class="input">
           <span class="input__icon">

@@ -3,7 +3,7 @@ namespace Tasteez\Models;
 
 class Model
 {
-  protected $db;
+  public $db;
 
   function __construct($db)
   {

@@ -39,11 +39,8 @@ $app->get('/privacy-policy', 'PrivacyPolicyController');
 $app->get('/search', 'SearchController');
 
 $app->group('/auth', function() {
-  $this->get('/login', 'AuthController:getLogin');
-  $this->post('/login', 'AuthController:postLogin');
   $this->get('/register', 'AuthController:getRegister');
   $this->post('/register', 'AuthController:postRegister');
-  $this->get('/logout', 'AuthController:logout');
 });
 //
 // $app->get('/auth/register', 'AuthAPIController:getRegister');
