@@ -1,0 +1,4 @@
+vendor/*
+scrape/node_modules/*
+migrate_api/*
+/node_modules/*

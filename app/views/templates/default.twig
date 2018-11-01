@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include '/partials/head.twig' %}
+  <body>
+    <noscript>
+      <p>
+        For full functionality of this site it is necessary to enable JavaScript.
+        Here are the <a href="http://www.enable-javascript.com/" target="_blank">
+        instructions how to enable JavaScript in your web browser</a>.
+      </p>
+    </noscript>
+    <!--[if lt IE 9]>
+        <p class="browserupgrade">
+          You are using an <strong>outdated</strong> browser.
+          Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+          improve your experience.</p>
+    <![endif]-->
+
+    {% block content   %}{% endblock %}
+
+  </body>
+</html>

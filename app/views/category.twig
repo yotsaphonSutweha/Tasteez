@@ -1,0 +1,10 @@
+{% set title = 'Category' %}
+
+{% extends './templates/main.twig' %}
+
+{% block main %}
+    {% for cat in category %}
+        <h2 class="title">{{ cat.category }}</h2>
+    {% endfor %}
+    {% include './partials/meals.twig' with { "meals" : category } %}
+{% endblock %}

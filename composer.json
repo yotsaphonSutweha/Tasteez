@@ -1,0 +1,30 @@
+{
+    "name": "laurence/Tasteez",
+    "autoload": {
+      "psr-4": {
+        "Tasteez\\": "app"
+      }
+
+    },
+    "scripts": {
+      "start": "php -S localhost:8080 -t public"
+    },
+    "config": {
+      "process-timeout": 0
+    },
+    "authors": [
+        {
+            "name": "larfoley",
+            "email": "lar_x87@yahoo.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.11",
+        "php-console/php-console": "^3.1",
+        "robmorgan/phinx": "^0.5.1",
+        "monolog/monolog": "^1.17",
+        "vlucas/phpdotenv": "^2.5",
+        "slim/twig-view": "^2.4",
+        "leafo/scssphp": "^0.7.7"
+    }
+}

@@ -1,0 +1,46 @@
+.masthead {
+  padding: 0;
+
+  &__title {
+    margin: 0;
+    text-align: center;
+    padding: 1em .5em;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 2.5em;
+      height: .2em;
+      background-color: $primary-color;
+      margin: auto;
+    }
+
+  }
+
+  &__img {
+    background-image: url('https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg');
+    height: 450px;
+    background-position: center;
+    background-size: cover;
+    // position: relative;
+  }
+
+  &__overlay {
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+  }
+
+  &__footer {
+    @extend .clearfix;
+    padding: 1.3em 1em;
+  }
+
+  &__like {
+    margin-right: 1em;
+  }
+
+}

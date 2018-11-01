@@ -1,0 +1,108 @@
+{% set title = 'Recipe' %}
+
+{% extends './templates/main.twig' %}
+
+{% block main %}
+   <section>
+        <div class="meal box">
+          <h2 class="meal__title">Beef</h2>
+          <div class="meal__banner" style="background-image: url('https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg')">
+            <img class="meal__banner" src="https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg" /> 
+
+          </div>
+          <div class="meal__footer">
+            <div class="u-float-left">
+              <span class="meal__like">
+                <i class="fas fa-thumbs-up"></i>
+                <span>340</span>
+              </span>
+              <span class="meal__like">
+                <i class="fas fa-thumbs-down"></i>
+                <span>32</span>
+              </span>
+            </div>
+            <div class="u-float-right">
+              <i class="fas fa-heart"></i>
+            </div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__col grid__col--2-of-3">
+            <div class="box">
+              <h2 class="title">Directions</h2>
+              <ul class="directions ">
+                <li class="u-table">
+                  <span class="u-table-cell">
+                    <span class="directions__icon">1</span>
+                  </span>
+                  <span class="u-table-cell">
+                    Lorem ed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niscepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </span>
+                </li>
+                <li class="u-table">
+                  <span class="u-table-cell">
+                    <span class="directions__icon">2</span>
+                  </span>
+                  <span class="u-table-cell">
+                    Lorem ed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niscepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </span>
+                </li>
+                <li class="u-table">
+                  <span class="u-table-cell">
+                    <span class="directions__icon">3</span>
+                  </span>
+                  <span class="u-table-cell">
+                    Lorem ed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niscepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </span>
+                </li>
+                <!-- <li><span class="directions__icon">1</span>Lorem ipsum dolor sit amet.</li>
+                <li><span class="directions__icon">2</span>Lorem ipsum dolor sit amet.</li> -->
+              </ul>
+              <iframe
+                width="100%"
+                height="400px"
+                src="https://www.youtube.com/embed/rB41QE672dc?ecver=1"
+                frameborder="0" allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+            </div>
+            <div class="box">
+              <h2 class="title">Comments</h2>
+              <form class="comments-form" action="index.html" method="post">
+                <textarea name="name"></textarea>
+                <input class="button" type="button" name="" value="Leave Comment">
+              </form>
+
+              <div class="commnets">
+                <div class="comment">
+                  <div class="comment__header">
+                    <i class="fas fa-user"></i>
+                    <span class="comment__user">John Doe</span>
+                    <span class="commnet_date">4 Days Ago</span>
+                  </div>
+                  <div class="comment__body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid__col grid__col--1-of-3">
+            <div class="box">
+              <h2 class="title">Ingredients</h2>
+              <label class="checkbox" for="1">
+                <input id="1" type="checkbox" name="" value="">
+                <p>Bread</p>
+              </label>
+              <label class="checkbox" for="2">
+                <input id="2" type="checkbox" name="" value="">
+                <p>Milk</p>
+              </label>
+              <label class="checkbox" for="3">
+                <input id="3" type="checkbox" name="" value="">
+                <p>Butter</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+{% endblock %}

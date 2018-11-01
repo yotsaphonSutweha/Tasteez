@@ -1,0 +1,21 @@
+.meal {
+  background-color: white;
+  color: gray;
+  display: block;
+  border-radius: 5px;
+  border-bottom: 2px solid #ddd;
+  transition: .3s;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &__thumbnail {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  &__footer {
+    padding: .7em;
+  }
+}
