@@ -49,7 +49,7 @@ class Meal extends Controller {
   }
 
   public function categories($request, $response, $args) {
-    $categories = $this->meal->findAll();
+    $categories = $this->meal->categories();
     return $this->view->render($response, 'categories.twig', [
       "categories" => $categories
     ]);

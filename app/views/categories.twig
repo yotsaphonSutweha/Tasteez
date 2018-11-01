@@ -3,6 +3,17 @@
 {% extends './templates/main.twig' %}
 
 {% block main %}
-    <h2 class="title">Categories</h2>
-    {% include './partials/categories.twig' with { "meals" : categories } %}
+  <h2 class="title">Categories</h2>
+  <ul class="media-list">
+  {% for category in categories %}
+    <li class="media-list__item">
+      <a href="/meals/categories/{{ category.category }}" class="category">
+        <img src="{{ category.image }}" alt="Meal" class="category__thumbnail">
+        <div class="category__footer">
+          {{ category.category }}
+        </div>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
 {% endblock %}

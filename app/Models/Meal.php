@@ -25,5 +25,9 @@ class Meal extends Model
     return $this->query($query);
   }
 
+  public function categories() {
+    $query = "SELECT id, category, image FROM categories";
+    return $this->query($query);
+  }
 
 }
