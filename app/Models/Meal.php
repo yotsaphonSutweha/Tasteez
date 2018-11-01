@@ -30,4 +30,16 @@ class Meal extends Model
     return $this->query($query);
   }
 
+  public function category($categoryName) {
+    $query = "SELECT meals.id, thumbnail, name
+    FROM meals
+    INNER JOIN categories
+    ON meals.cat = categories.category
+    WHERE meals.cat = '${categoryName}'";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":categoryName", $categoryName);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
 }

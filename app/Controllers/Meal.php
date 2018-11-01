@@ -42,6 +42,7 @@ class Meal extends Controller {
   }
 
   public function category($request, $response, $args) {
+    $name = $args['name'];
     $meals = $this->meal->findAll();
     return $this->view->render($response, 'category.twig', [
       "meals" => $meals
