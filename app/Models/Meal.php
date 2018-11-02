@@ -48,4 +48,13 @@ class Meal extends Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function search($searchTerm) {
+    $searchTerm = strtolower("%".$searchTerm."%");
+    $query = "SELECT * FROM meals WHERE name LIKE :searchTerm";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":searchTerm", $searchTerm);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 }
