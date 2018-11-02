@@ -12,8 +12,8 @@ class Home extends Controller
 
   function __invoke($request, $response) {
     $meal = new \Tasteez\Models\Meal($this->container->db);
-    $mostPopularMeals = $meal->popular();
-    $recommended = $meal->findAll(); // To be changed
+    $mostPopularMeals = $meal->popular(0, 8);
+    $recommended = $meal->findAll(0, 8); // To be changed
     return $this->container->view->render($response, 'home.twig', [
       "mostPopularMeals" => $mostPopularMeals,
       "recommended" => $recommended

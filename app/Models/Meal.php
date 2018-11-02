@@ -14,7 +14,7 @@ class Meal extends Model
     return array("meal" => $mealId);
   }
 
-  public function popular() {
+  public function popular($offset = null, $limit = null) {
     $query = "SELECT *,
       CASE 
       WHEN (SELECT sum(like_value) from likes WHERE recipe_id = meals.id) IS NULL THEN 0
@@ -22,6 +22,11 @@ class Meal extends Model
       END AS LikesAmount FROM meals
       ORDER BY LikesAmount DESC
     ";
+
+    if (isset($offset) && isset($limit)) {
+      $query .= " LIMIT ${offset}, ${limit}";
+    }
+
     return $this->query($query);
   }
 

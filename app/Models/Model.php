@@ -16,12 +16,15 @@ class Model
     return strtolower($className) . "s";
   }
 
-  public function findAll()
+  public function findAll($offset = null, $limit = null)
   {
     $query = "SELECT * FROM " . $this->getTableName();
-    $tableName = $this->getTableName();
 
-    return $this->db->query("SELECT * FROM ${tableName}")->fetchAll();
+    if (isset($offset) && isset($limit)) {
+      $query .= " LIMIT ${offset}, ${limit}";
+    }
+
+    return $this->db->query($query)->fetchAll();
   }
 
   public function findById($id)
