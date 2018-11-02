@@ -3,9 +3,18 @@
 {% extends './templates/main.twig' %}
 
 {% block main %}
-
-  <h2 class="title">Meals</h2>
-
-  {% include './partials/meals.twig' with {'meals': meals} %}
-
+  <section>
+    <h2 class="title">Most Popular</h2>
+      {% include './partials/meals.twig' with {'meals': mostPopularMeals} %}
+    <p>
+      <a class="link" href="/meals/most-popular">More Popular Meals</a>
+    </p>
+  </section>
+  <section>
+    <h2 class="title">Recommended</h2>
+    {% include './partials/meals.twig' with {'meals': recommended} %}
+    <p>
+      <a class="link" href="/meals/recommended">More Recommended Meals</a>
+    </p>
+  </section>
 {% endblock %}
