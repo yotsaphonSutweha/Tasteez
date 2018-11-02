@@ -31,15 +31,16 @@ class Meal extends Model
   }
 
   public function category($categoryName) {
+    var_dump($categoryName);
     $query = "SELECT meals.id, thumbnail, name
     FROM meals
     INNER JOIN categories
     ON meals.cat = categories.category
     WHERE meals.cat = '${categoryName}'";
-    $stmt = $db->prepare($query);
+    $stmt = $this->db->prepare($query);
     $stmt->bindParam(":categoryName", $categoryName);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
 }
