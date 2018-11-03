@@ -39,6 +39,14 @@ class Auth extends Controller
       return $this->view->render($response, 'login.twig', [
       ]);
     }
+    
+    $token = array(
+      "id" => $userDetails['id'],
+      "username" => $userDetails['username'],
+      "token" => password_hash($userDetails['id'] . $userDetails['username'], PASSWORD_BCRYPT)
+    );
+
+    setcookie('cookie', json_encode($token), time()+3600, "/");
 
     return $response->withRedirect('/');
 
