@@ -81,4 +81,21 @@ class User extends Model
     return $stmt->rowCount();
   }
 
+  public function getFavorites($userId) {
+    $query = "SELECT * FROM favorites INNER JOIN meals ON  meals.id = favorites.recipe_id WHERE user_id = :user_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+  public function favoriteRecipe($recipeId, $userId) {
+    if(!$this->isFavorited($recipeId, $userId)) {
+      $this->favorite($recipeId, $userId);
+      return array("Message" => "favorited $recipeId");
+    }
+      return array("Message" => "unfavorited $recipeId");
+    }
+
+
+
 }
