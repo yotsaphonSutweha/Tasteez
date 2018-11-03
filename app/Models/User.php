@@ -64,4 +64,21 @@ class User extends Model
     return password_verify($oldPassword, $user['password']);
   }
 
+  public function favorite($recipeId, $userId) {
+    $query = "INSERT INTO favorites (user_id, recipe_id) VALUES (:user_id, :recipe_id)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':recipe_id', $recipeId);
+    return $stmt->execute();
+  }
+
+  public function isFavorited($recipeId, $userId) {
+    $query = "DELETE FROM favorites WHERE recipe_id = :recipe_id AND user_id = :user_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':recipe_id', $recipeId);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->execute();
+    return $stmt->rowCount();
+  }
+
 }
