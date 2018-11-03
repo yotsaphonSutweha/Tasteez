@@ -55,5 +55,13 @@ class User extends Model
     return password_verify($user['id'] . $user['username'], $token);
   }
 
+  public function isLoggedIn() {
+    return isset($_COOKIE['cookie']) && $this->validateCookie();
+  }
+
+  public function verifyPassword($oldPassword, $id) {
+    $user = $this->findById($id);
+    return password_verify($oldPassword, $user['password']);
+  }
 
 }

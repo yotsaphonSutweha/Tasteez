@@ -7,7 +7,8 @@ class Auth extends Controller
 
   protected $db;
   protected $view;
-
+  protected $user;
+  
   function __construct($container)
   {
     $this->db = $container->db;
