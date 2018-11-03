@@ -39,7 +39,7 @@ class Auth extends Controller
       return $this->view->render($response, 'login.twig', [
       ]);
     }
-    
+
     $token = array(
       "id" => $userDetails['id'],
       "username" => $userDetails['username'],
@@ -96,6 +96,12 @@ class Auth extends Controller
       $user->createNew($username, $email, $hash);
       return $this->view->render($response, 'register.twig', ["registered" => true]);
     }
-
   }
+
+  public function logout($request, $response) {
+    unset($_COOKIE['cookie']);
+    setcookie('cookie', '', time()-3600, "/");
+    return $response->withRedirect('/auth/login');
+  }
+
 }
