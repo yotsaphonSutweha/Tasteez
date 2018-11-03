@@ -96,6 +96,36 @@ class User extends Model
       return array("Message" => "unfavorited $recipeId");
     }
 
+    public function like($recipeId, $likeValue, $userId) {
+      $query = "INSERT INTO likes (user_id, like_value, recipe_id) VALUES (:user_id, :like_value, :recipe_id)";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':user_id', $userId);
+      $stmt->bindParam(':like_value', $likeValue);
+      $stmt->bindParam(':recipe_id', $recipeId);
+      return $stmt->execute();
+    }
+
+    public function isLiked($recipeId, $userId) {
+      $query = "DELETE FROM likes WHERE recipe_id = :recipe_id AND user_id = :user_id";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':recipe_id', $recipeId);
+      $stmt->bindParam(':user_id', $userId);
+      $stmt->execute();
+      return $stmt->rowCount();
+    }
+
+    public function likeRecipe($recipeId, $like, $userId) {
+      $likeValue = ('like' === $like ? 1 : -1);
+  
+      if(!$this->isLiked($recipeId, $userId)) {
+        $this->like($recipeId, $likeValue, $userId);
+        return array("Message" => "like status updated on recipe $recipeId");
+      }
+  
+      return array("Message" => "undone like status updated on recipe $recipeId");
+    }
+  
+
 
 
 }
