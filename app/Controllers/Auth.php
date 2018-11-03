@@ -8,12 +8,42 @@ class Auth extends Controller
   protected $db;
   protected $view;
   protected $user;
-  
+
   function __construct($container)
   {
     $this->db = $container->db;
     $this->view = $container->view;
   }
+  public function getLogin($request, $response) {
+    if ($this->user->isLoggedIn()) {
+      return $response->withRedirect('/');
+    }
+    return $this->view->render($response, 'login.twig');
+  }
+  
+  public function postLogin($request, $response) {
+    $user = $this->user;
+
+    if ($user->isLoggedIn()) {
+      return $response->withRedirect('/');
+    }
+
+    $data = $request->getParsedBody();
+    $username = $data['username'];
+    $email = $data['email'];
+    $password = $data['password'];
+    $userDetails = $user->findByName($username, $email);
+
+
+    if (!$user->exists($username, $email) || !(password_verify($password, $userDetails['password']))) {
+      return $this->view->render($response, 'login.twig', [
+      ]);
+    }
+
+    return $response->withRedirect('/');
+
+  }
+
 
   public function getRegister($request, $response) {
     return $this->view->render($response, 'register.twig');

@@ -27,13 +27,13 @@ class Auth
   public function signIn($username, $email, $password) {
     $user = new User($this->db);
     $userDetails = $user->findByName($username, $email);
-
     if (!$user->exists($username, $email) || !(password_verify($password, $userDetails['password']))) {
-        
+
         return false;
     } else {
         $token = array(
             "id" => $userDetails['id'],
+            "username" => $userDetails['username'],
             "token" => password_hash($userDetails['id'] . $userDetails['username'], PASSWORD_BCRYPT)
         );
         setcookie('cookie', json_encode($token), time()+3600, "/");
