@@ -25,4 +25,16 @@ class Meals extends Controller
     return $response->withJson($meal->popular());
   }
 
+  public function favoriteRecipe($request, $response, $args) {
+    $recipeId = $args['id'];
+    $user = new \Tasteez\Models\User($this->container->db);
+
+    if ($this->user->isLoggedIn()) {
+        $id = json_decode($_COOKIE['cookie'], true)['id'];
+        return $response->withJson($user->favoriteRecipe($recipeId, $id));
+    } else {
+        return $response->withJson(array("Message" => "User not logged in!"));
+    }
+}
+
 }
