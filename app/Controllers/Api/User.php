@@ -14,11 +14,6 @@ class Meals extends Controller {
     $this->container = $container;
   }
 
-  public function popular($request, $response) {
-    $meal = new \Tasteez\Models\Meal($this->container->db);
-    return $response->withJson($meal->popular());
-  }
-
   public function getFavorites($request, $response, $args) {
     $user = new \Tasteez\Models\User($this->container->db);
 

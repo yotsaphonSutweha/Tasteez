@@ -20,4 +20,9 @@ class Meals extends Controller
     return $response->withJson($meal->getMealDetails($mealId));
   }
 
+  public function popular($request, $response) {
+    $meal = new \Tasteez\Models\Meal($this->container->db);
+    return $response->withJson($meal->popular());
+  }
+
 }
