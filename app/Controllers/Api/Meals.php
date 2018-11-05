@@ -36,5 +36,16 @@ class Meals extends Controller
         return $response->withJson(array("Message" => "User not logged in!"));
     }
 }
+  public function search($request, $response, $args) {
+    $meal = new \Tasteez\Models\Meal($this->container->db);
+    $searchTerm = $args['searchTerm'];
+    return $response->withJson($meal->search($searchTerm));
+  }
+
+  public function categories($request, $response) {
+    $meal = new \Tasteez\Models\Meal($this->container->db);
+    return $response->withJson($meal->categories());
+  }
+
 
 }
