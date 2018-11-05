@@ -124,8 +124,21 @@ class User extends Model
   
       return array("Message" => "undone like status updated on recipe $recipeId");
     }
+
+    public function getID() {
+      if (isset($_COOKIE['cookie']) && $this->validateCookie()) {
+        $cookie = json_decode($_COOKIE['cookie'], true);
+        return $cookie["id"];
+      }
+      return false;
+    }
+
+    public function getUsername() {
+      if (isset($_COOKIE['cookie']) && $this->validateCookie()) {
+        $cookie = json_decode($_COOKIE['cookie'], true);
+        return $cookie["username"];
+      }
+      return false;
+    }
   
-
-
-
 }
