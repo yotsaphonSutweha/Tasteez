@@ -47,5 +47,16 @@ class Meals extends Controller
     return $response->withJson($meal->categories());
   }
 
+  public function likeMeal($request, $response, $args) {
+    if (!$user->isLoggedIn()) {
+      return $response->withJson([], 403);
+    }
+    $mealID = $args['id'];
+    $user = new \Tasteez\Models\User($this->container->db);
+    $user->likeRecipe($args['id'], 1, $user->getID());
+    return $response->withJson([], 200);
+  }
+
+ 
 
 }
