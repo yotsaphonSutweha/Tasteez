@@ -41,6 +41,8 @@ $app->get('/search', 'SearchController');
 $app->group('/auth', function() {
   $this->get('/register', 'AuthController:getRegister');
   $this->post('/register', 'AuthController:postRegister');
+  $this->get('/login', 'AuthController:getLogin');
+  $this->post('/login', 'AuthController:postLogin');
 });
 //
 // $app->get('/auth/register', 'AuthAPIController:getRegister');

@@ -1,7 +1,7 @@
 <?php
 
 namespace Tasteez\Controllers;
-
+use \Tasteez\Models\User;
 class Auth extends Controller
 {
 
@@ -13,6 +13,7 @@ class Auth extends Controller
   {
     $this->db = $container->db;
     $this->view = $container->view;
+    $this->user = new User($container->db);
   }
   public function getLogin($request, $response) {
     if ($this->user->isLoggedIn()) {
