@@ -140,5 +140,29 @@ class User extends Model
       }
       return false;
     }
+    
+    public function verifyEmail($oldEmail, $id) {
+      $user = $this->findById($id);
+      return $oldEmail === $user['email'];
+    }
+
+    public function updateEmail($oldEmail, $email, $id)
+    {
+      if($this->exists(null, $email)) {
+        return array("message" => "Account with email already exists");
+      } else if($this->verifyEmail($oldEmail, $id)) {
+        $query = "UPDATE users set email = :email WHERE id = :id;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return array("message" => "email successfully updated!");
+      } else {
+        return array("message" => "Wrong email entered!",
+                      "Old email" => $oldEmail,
+                      "New email" => $newEmail,
+                      "id" => $id);
+      }
+    }
   
 }
