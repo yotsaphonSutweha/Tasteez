@@ -26,4 +26,18 @@ class Meals extends Controller {
     }
   }
 
+  public function updatePassword($request, $response) {
+    $body = $request->getParsedBody();
+    $oldPassword = $body['oldPassword'];
+    $password = $body['password'];
+    $user = new \Tasteez\Models\User($this->container->db);
+    if ($user->isLoggedIn()) {
+        $id = json_decode($_COOKIE['cookie'], true)['id'];
+        return $response->withJson($user->updatePassword($oldPassword, $password, $id));
+    } else {
+        return $response->withJson(array("Message" => "User not logged in!"));
+    }
+   }
+
+
 }

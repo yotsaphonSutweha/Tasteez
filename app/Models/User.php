@@ -164,5 +164,21 @@ class User extends Model
                       "id" => $id);
       }
     }
+
+    public function updatePassword($oldPassword, $password, $id)
+    {
+      if($this->verifyPassword($oldPassword, $id)) {
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $query = "UPDATE users set password = :password WHERE id = :id;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':password', $hash);
+        $stmt->execute();
+        $user = $this->findById($id);
+        return array("message" => "password successfully updated!");
+      } else {
+        return array("message" => "Wrong password entered!");
+      }
+    }
   
 }
