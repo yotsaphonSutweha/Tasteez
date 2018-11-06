@@ -180,5 +180,21 @@ class User extends Model
         return array("message" => "Wrong password entered!");
       }
     }
+
+    public function addComment($comment, $mealID, $userID) {
+      $dateString = date('Y/m/d H:i:s');
+  
+      $stmt = $this->db->prepare("INSERT
+        INTO comments (comment, date_added, user_id, recipe_id)
+        VALUES (:comment, '${dateString}', :user_id, :meal_id )");
+  
+      $stmt->execute([
+        ":comment" => $comment,
+        ":user_id" => $userID,
+        ":meal_id" => $mealID
+      ]);
+  
+      return $stmt;
+    }
   
 }
