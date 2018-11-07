@@ -39,5 +39,17 @@ class Meals extends Controller {
     }
    }
 
+   public function deleteUser($request, $response, $args) {
+    $userId = $args['userId'];
+    $user = new \Tasteez\Models\User($this->container->db);
+    if ($user->isLoggedIn() && $user->validateCookie() && json_decode($_COOKIE['cookie'], true)['id'] === $userId) {
+      $user->deleteUser($userId);
+      unset($_COOKIE['cookie']);
+      return $response->withJson(array("Message" => "Successfully deleted user!"));
+    } else {
+      return $response->withJson(array("Message" => "User not logged in!"));
+    }
+  }
+
 
 }
