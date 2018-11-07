@@ -197,4 +197,11 @@ class User extends Model
       return $stmt;
     }
   
+    public function deleteUser($userId) {
+      $query = "DELETE FROM users WHERE id = :user_id";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':user_id', $userId);
+      return $stmt->execute();
+    }
+  
 }
