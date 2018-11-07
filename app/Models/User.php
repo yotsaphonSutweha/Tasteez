@@ -181,6 +181,13 @@ class User extends Model
       }
     }
 
+    public function deleteUser($userId) {
+      $query = "DELETE FROM users WHERE id = :user_id";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':user_id', $userId);
+      return $stmt->execute();
+    }
+
     public function addComment($comment, $mealID, $userID) {
       $dateString = date('Y/m/d H:i:s');
   
@@ -196,12 +203,14 @@ class User extends Model
   
       return $stmt;
     }
+
+    public function deleteComment($commentID, $userID) {
+      $stmt = $this->db->prepare("DELETE
+        FROM comments
+        WHERE comment_id = :comment_id AND user_id = :user_id");
   
-    public function deleteUser($userId) {
-      $query = "DELETE FROM users WHERE id = :user_id";
-      $stmt = $this->db->prepare($query);
-      $stmt->bindParam(':user_id', $userId);
-      return $stmt->execute();
+      $stmt->execute([ ":user_id" => $userID, ":comment_id" => $commentID]);
+  
+      return $stmt;
     }
-  
 }
