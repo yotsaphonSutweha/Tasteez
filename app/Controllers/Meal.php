@@ -16,6 +16,23 @@ class Meal extends Controller {
     $this->view = $container->view;
     $this->user = new User($container->db);
   }
+  public function getMeal($mealID, $userID) {
+    $db = $this->db;
+
+    $favouriteModel = new Favourite($db);
+    $ingredientModel = new Ingredient($db);
+    $likedModel = new Liked($db);
+    $commentModel = new Comment($db);
+
+    $meal = $this->findById($mealID);
+
+    $meal["ingredients"] = $ingredientModel->getMealIngredients($mealID);
+    $meal["comments"] = $commentModel->getAll($mealID, $userID);
+    $meal["isFavourite"] = $favouriteModel->isFavourite($userID, $mealID);
+    $meal["likes"] = $likedModel->getMealLikes($mealID, $userID);
+
+    return $meal;
+  }
 
   public function mostPopular($request, $response, $args) {
     $meals = $this->meal->popular();
