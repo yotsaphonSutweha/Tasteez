@@ -56,5 +56,74 @@ class Meal extends Model
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+  public function likeMeal($mealID, $userID = 0) {
+    if ($userID) {
+      $liked = new Liked($this->db);
+
+      if ($liked->userLikesMeal($userID, $mealID)) {
+        $liked->removeLike($userID, $mealID);
+
+      } else if ($liked->userDislikesMeal($userID, $mealID)) {
+        $liked->updateLike(1, $mealID, $userID);
+
+      } else {
+        $liked->addLike(1, $mealID, $userID);
+      }
+    }
+  }
+
+  public function dislikeMeal($mealID, $userID) {
+    if ($userID) {
+      $liked = new Liked($this->db);
+
+      if ($liked->userDislikesMeal($userID, $mealID)) {
+        $liked->removeLike($userID, $mealID);
+
+      } else if ($liked->userLikesMeal($userID, $mealID)) {
+        $liked->updateLike(-1, $mealID, $userID);
+
+      } else {
+        $liked->addLike(-1, $mealID, $userID);
+
+      }
+    }
+  }
+  
+  public function addToFavourites($userID, $mealID) {
+    if ($userID) {
+      $favourite = new Favourite($this->db);
+      if ($favourite->isFavourite($userID, $mealID)) {
+        $favourite->removeFavourite($userID, $mealID);
+      } else {
+        $favourite->addFavourite($userID, $mealID);
+      }
+    }
+  }
+
+  public function removeFromFavourites($userID, $mealID) {
+    if ($userID) {
+      $favourite = new Favourite($this->db);
+      $favourite->removeFavourite($userID, $mealID);
+    }
+  }
+
+  public function getFavorites($userID) {
+    $query = "SELECT * FROM favorites INNER JOIN meals ON  meals.id = favorites.recipe_id WHERE user_id = :user_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':user_id', $userID);
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
+
+  public function addComment($comment, $mealID, $userID) {
+    $commentModel = new Comment($this->db);
+    $commentModel->addComment($comment, $mealID, $userID);
+  }
+
+  public function deleteComment($mealID, $userID) {
+    $commentModel = new Comment($this->db);
+    $commentModel->deleteComment($mealID, $userID);
+  }
 
 }
