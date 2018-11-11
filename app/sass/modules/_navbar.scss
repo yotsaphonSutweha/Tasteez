@@ -24,7 +24,7 @@
   transition: .3s;
   color: white;
   text-decoration: none;
-  border-bottom: 1px solid $sidebar-color;
+  border-bottom: 1px solid darken($sidebar-color, 10%);
   display: inline-block;
   width: 20%;
   font-size: .8em;
@@ -53,7 +53,7 @@
   }
 
   &:hover {
-    background-color: $sidebar-color;
+    background-color: darken($sidebar-color, 10%);
   }
 
   @media screen and (min-width: 700px) {

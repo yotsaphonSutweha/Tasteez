@@ -56,8 +56,11 @@ h6, .h6 {
 }
 
 .title {
-  @extend .h4;
+  font-size: 1.5rem;
   margin-bottom: 1em;
+  text-transform: uppercase;
+  font-family: 'Rubik', sans-serif;
+
   &.u-text-center:after {
     margin: auto;
   }

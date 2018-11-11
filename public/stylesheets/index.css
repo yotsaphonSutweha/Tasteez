@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Rubik:700');
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
  ========================================================================== */
@@ -2832,7 +2833,7 @@ h2, .h2 {
 h3, .h3 {
   font-size: 1.7rem; }
 
-h4, .h4, .title {
+h4, .h4 {
   font-size: 1.4rem; }
 
 h5, .h5 {
@@ -2842,7 +2843,10 @@ h6, .h6 {
   font-size: 1rem; }
 
 .title {
-  margin-bottom: 1em; }
+  font-size: 1.5rem;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+  font-family: 'Rubik', sans-serif; }
   .title.u-text-center:after {
     margin: auto; }
   .title:after {
@@ -2889,7 +2893,8 @@ h6, .h6 {
   padding: 0 2em;
   width: 100%;
   position: fixed;
-  top: 0; }
+  top: 0;
+  z-index: 999; }
   .header a {
     color: #78e08f;
     text-decoration: none;
@@ -2920,7 +2925,7 @@ h6, .h6 {
   left: 0;
   bottom: 0;
   z-index: 1;
-  background-color: #576366;
+  background-color: #373d49;
   color: #495057;
   top: auto;
   width: 100%; }
@@ -2937,7 +2942,7 @@ h6, .h6 {
   transition: 0.3s;
   color: white;
   text-decoration: none;
-  border-bottom: 1px solid #495057;
+  border-bottom: 1px solid #32373b;
   display: inline-block;
   width: 20%;
   font-size: 0.8em;
@@ -2960,7 +2965,7 @@ h6, .h6 {
   .navbar__link span {
     display: inline; } }
   .navbar__link:hover {
-    background-color: #495057; }
+    background-color: #32373b; }
   @media screen and (min-width: 700px) {
   .navbar__link {
     padding: 1.5em 1em;
@@ -3004,7 +3009,7 @@ h6, .h6 {
     .input__input, .input__input::placeholder {
       color: #ccc; }
   .input__icon {
-    padding: 1.1em;
+    padding: 1.1em 1.3em;
     vertical-align: bottom;
     background-color: #78e08f;
     color: white;
@@ -3027,18 +3032,24 @@ h6, .h6 {
     background-color: #63db7e; }
 
 .masthead {
-  padding: 0; }
+  padding: 0;
+  background-color: white;
+  margin-bottom: 2em;
+  position: relative; }
   .masthead__title {
     margin: 0;
+    padding: 1.5em;
+    position: absolute;
+    top: 0;
+    width: 100%;
     text-align: center;
-    padding: 1em 0.5em; }
-    .masthead__title:after {
-      content: "";
-      display: block;
-      width: 2.5em;
-      height: 0.2em;
-      background-color: #78e08f;
-      margin: auto; }
+    background-color: #78e08f;
+    color: white; }
+    @media screen and (min-width: 700px) {
+  .masthead__title {
+    width: auto;
+    padding: 0.5em;
+    margin: 1em 1.2em; } }
   .masthead__img {
     background-image: url('https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg');
     height: 450px;
@@ -3052,7 +3063,12 @@ h6, .h6 {
     opacity: 0;
     position: absolute; }
   .masthead__footer {
-    padding: 1.3em 1em; }
+    padding: 1.5em;
+    background: #373d49;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%; }
   .masthead__like {
     margin-right: 1em; }
 
@@ -3069,15 +3085,29 @@ h6, .h6 {
   color: gray;
   display: block;
   border-radius: 5px;
-  border-bottom: 2px solid #ddd;
-  transition: 0.3s; }
-  .meal:hover {
-    transform: scale(1.03); }
+  position: relative;
+  overflow: hidden; }
+  .meal:hover .meal__thumbnail {
+    transform: scale(1.03);
+    transform: scale3d(1.05, 1.05, 1.05); }
+  .meal:hover .meal__footer {
+    background-color: #63db7e; }
   .meal__thumbnail {
+    transition: 0.3s;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px; }
   .meal__footer {
-    padding: 0.7em; }
+    font-size: 1.1em;
+    padding: 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #373d49;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: 0.3s; }
 
 .directions {
   margin-bottom: 2em; }
@@ -3103,9 +3133,9 @@ h6, .h6 {
     display: table-cell;
     margin-right: 0.5em; }
 
-.comments-form {
+.add-comment__form {
   margin-bottom: 2em; }
-  .comments-form textarea {
+  .add-comment__input {
     height: 80px;
     width: 100%;
     background-color: #f5f5f5;
@@ -3114,12 +3144,16 @@ h6, .h6 {
     padding: 1em;
     border: none;
     border-radius: 5px; }
-    .comments-form textarea:focus {
+    .add-comment__input:focus {
       outline-color: #78e08f; }
-  .comments-form .button {
+  .add-comment__submit {
     width: auto;
     padding-left: 1.5em;
     padding-right: 1.5em; }
+    .add-comment__submit:disabled {
+      background-color: #cbf3d4; }
+      .add-comment__submit:disabled:hover {
+        cursor: not-allowed; }
 
 .comment {
   border: 1px solid #f5f5f5;
@@ -3137,7 +3171,7 @@ h6, .h6 {
 .discovery_link {
   display: block;
   text-align: center;
-  background-color: #576366;
+  background-color: #373d49;
   color: white;
   text-decoration: none;
   padding: 6em 0;
@@ -3180,10 +3214,28 @@ h6, .h6 {
     .media-list__item:nth-child(4n) {
       margin-right: 0; } }
 
-.category-link {
-  display: block;
+.category {
   background-color: white;
-  color: white; }
-  .category-link__footer {
-    background-color: white;
-    color: black; }
+  color: gray;
+  display: block;
+  border-radius: 5px;
+  overflow: hidden; }
+  .category:hover .category__thumbnail {
+    transform: scale(1.03);
+    transform: scale3d(1.05, 1.05, 1.05); }
+  .category:hover .category__footer {
+    background-color: #63db7e; }
+  .category__thumbnail {
+    padding: 1em;
+    transition: 0.3s;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px; }
+  .category__footer {
+    font-size: 1.1em;
+    padding: 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #373d49;
+    color: white;
+    transition: 0.3s; }
