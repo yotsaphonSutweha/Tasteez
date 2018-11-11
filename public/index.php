@@ -6,12 +6,12 @@ require '../vendor/autoload.php';
 use Leafo\ScssPhp\Compiler;
 
 // Compile Sass
-$scss = new Compiler();
-$scss->setImportPaths('../app/sass/');
-$css = $scss->compile(file_get_contents('../app/sass/index.scss'));
-$css_file = './stylesheets/index.css';
-$handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
-fwrite($handle, $css);
+// $scss = new Compiler();
+// $scss->setImportPaths('../app/sass/');
+// $css = $scss->compile(file_get_contents('../app/sass/index.scss'));
+// $css_file = './stylesheets/index.css';
+// $handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
+// fwrite($handle, $css);
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
