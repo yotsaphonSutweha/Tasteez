@@ -1,7 +1,8 @@
 <?php
-
 namespace Tasteez\Controllers;
 use \Tasteez\Models\User;
+use \Tasteez\Models\Auth as AuthModel;
+
 class Auth extends Controller
 {
 
@@ -55,28 +56,45 @@ class Auth extends Controller
 
 
   public function getRegister($request, $response) {
+    if ($this->user->isLoggedIn()) {
+      return $response->withRedirect('/', [
+        "loggedIn" => $this->user->isLoggedIn()
+      ]);
+    }
+
     return $this->view->render($response, 'register.twig');
   }
 
-  
   public function postRegister($request, $response) {
-    $data = $request->getParsedBody();
-    $errors = array();
-    $username = trim($data['username']);
-    $email = trim($data['email']);
-    $password =trim($data['password']);
-    $confirmPassword = trim($data['confirm_password']);
-
-    if ($username == "" || $email == "" || $password == "" || $confirmPassword == "") {
-      array_push($errors, "Some required fileds have been left blank");
+    if ($this->user->isLoggedIn()) {
+      return $response->withRedirect('/');
     }
 
-    if (strlen($username) < 4 || strlen($username) > 10) {
-      array_push($errors, "");
+    $data = $request->getParsedBody();
+    $errors = array();
+
+    $username = $this->clean($data['username']);
+    $email = $this->clean($data['email']);
+    $password = $this->clean($data['password']);
+    $confirmPassword = $this->clean($data['confirm_password']);
+
+    $username = trim($username);
+    $email = trim($email);
+    $password =trim($password);
+    $confirmPassword = trim($confirmPassword);
+
+    $agreed = $data['agreed'];
+   
+    if ($username == "" || $email == "" || $password == "" || $confirmPassword == "" || !$agreed) {
+      array_push($errors, "Some required fileds have been left blank");
     }
 
     if ($password !== $confirmPassword) {
       array_push($errors, "Passwords do not match");
+    }
+
+    if(!$agreed) {
+      array_push($errors, "You must agree to the applications terms and conditions");
     }
 
     if (count($errors) > 0) {
@@ -90,14 +108,16 @@ class Auth extends Controller
     }
 
     if (count($errors) > 0) {
-      return $this->view->render($response, 'register.twig', ["errors" => $errors]);
+      return $this->view->render($response, 'register.twig', ["errors" => "error"]);
 
     } else {
       $hash = password_hash($password, PASSWORD_BCRYPT);
       $user->createNew($username, $email, $hash);
       return $this->view->render($response, 'register.twig', ["registered" => true]);
     }
+   
   }
+  
 
   public function logout($request, $response) {
     unset($_COOKIE['cookie']);
@@ -105,4 +125,7 @@ class Auth extends Controller
     return $response->withRedirect('/auth/login');
   }
 
+  public function clean($string) {
+    return preg_replace('/[\;\(\)\<\>\/\*\=\"]/', '', $string); 
+  }
 }
