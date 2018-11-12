@@ -11,7 +11,9 @@ class PrivacyPolicy extends Controller
   // }
 
   function __invoke($request, $response) {
-    return $this->container->view->render($response, 'privacy-policy.twig');
+    return $this->container->view->render($response, 'privacy-policy.twig',[
+      "loggedIn" => $user->isLoggedIn()
+    ]);
   }
 
 }

@@ -38,6 +38,7 @@ class Meal extends Controller {
     $meals = $this->meal->popular();
     return $this->view->render($response, 'mostpopular.twig', [
       "mostPopularMeals" => $meals,
+      "loggedIn" => $this->user->isLoggedIn()
     ]);
   }
 
@@ -49,7 +50,8 @@ class Meal extends Controller {
   public function favourites($request, $response) {
     $meals = [];
     return $this->view->render($response, 'favourites.twig', [
-      "meals" => $meals
+      "meals" => $meals,
+      "loggedIn" => $this->user->isLoggedIn()
     ]);
 
   }
@@ -63,14 +65,16 @@ class Meal extends Controller {
     $meals = $this->meal->category($name);
     return $this->view->render($response, 'category.twig', [
       "category" => $meals,
-      "name" => $name
+      "name" => $name, 
+      "loggedIn" => $this->user->isLoggedIn()
     ]);
   }
 
   public function categories($request, $response, $args) {
     $categories = $this->meal->categories();
     return $this->view->render($response, 'categories.twig', [
-      "categories" => $categories
+      "categories" => $categories,
+      "loggedIn" => $this->user->isLoggedIn()
     ]);
   }
 

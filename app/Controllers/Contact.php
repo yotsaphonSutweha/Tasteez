@@ -2,12 +2,15 @@
 
 namespace Tasteez\Controllers;
 
+use Tasteez\Models\User;
 
 class Contact extends Controller
 {
 
   function __invoke($request, $response) {
-    return $this->container->view->render($response, 'contact.twig');
+    return $this->container->view->render($response, 'contact.twig', [
+      "loggedIn" => $user->isLoggedIn()
+    ]);
   }
 
 }
