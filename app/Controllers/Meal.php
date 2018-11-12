@@ -44,7 +44,9 @@ class Meal extends Controller {
 
 
   public function discover($request, $response) {
-    return $this->view->render($response, 'discover.twig');
+    return $this->view->render($response, 'discover.twig', [
+      "loggedIn" => $this->user->isLoggedIn()
+    ]);
   }
 
   public function favourites($request, $response) {
