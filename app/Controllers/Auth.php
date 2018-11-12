@@ -20,7 +20,9 @@ class Auth extends Controller
     if ($this->user->isLoggedIn()) {
       return $response->withRedirect('/');
     }
-    return $this->view->render($response, 'login.twig');
+    return $this->view->render($response, 'login.twig', [
+      "loggedIn" => $this->user->isLoggedIn()
+    ]);
   }
   
   public function postLogin($request, $response) {
@@ -31,14 +33,21 @@ class Auth extends Controller
     }
 
     $data = $request->getParsedBody();
-    $username = $data['username'];
-    $email = $data['email'];
-    $password = $data['password'];
+    $username = $this->clean($data['username']);
+    $email = $this->clean($data['email']);
+    $password = $this->clean($data['password']);
+
+    $username = trim($username);
+    $email = trim($email);
+    $password = trim($password);
+    
     $userDetails = $user->findByName($username, $email);
 
 
     if (!$user->exists($username, $email) || !(password_verify($password, $userDetails['password']))) {
       return $this->view->render($response, 'login.twig', [
+        "error" => "Invalid login credentials",
+        "loggedIn" => $this->user->isLoggedIn()
       ]);
     }
 

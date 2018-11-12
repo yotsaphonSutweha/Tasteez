@@ -4,6 +4,25 @@
 
 {% block main %}
     <h2 class="title">Sign In</h2>
+
+    {% if error is defined %}
+    <div class="message message--error">
+      <p class="message__content">
+        {{ error }}
+      </p>
+    </div>
+    {% endif %}
+
+    {% if successfullLogin is defined %}
+
+      <div class="message message--success">
+        <p class="message__content">
+          Logged in
+        </p>
+      </div>
+
+    {% else %}
+
       <form class="form" action="/auth/login" method="post">
         <div class="input">
           <span class="input__icon">
@@ -21,4 +40,7 @@
 
         <button class="button" type="submit" name=""> Submit</button>
       </form>
+
+    {% endif %}
+
 {% endblock %}
