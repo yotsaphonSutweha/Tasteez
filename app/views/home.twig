@@ -1,8 +1,20 @@
 {% set title = 'Home' %}
 
-{% extends './templates/main.twig' %}
-
+{% extends './templates/main.twig'%}
 {% block main %}
+
+{% if loggedIn == true %}
+  <section>
+    <h2 class="title">Recommended</h2>
+    {% include './partials/meals.twig' with {'meals': recommended} %}
+    <p>
+      <a class="link" href="/meals/recommended">More Recommended Meals</a>
+    </p>
+  </section>
+{% endif %}
+
+
+
   <section>
     <h2 class="title">Most Popular</h2>
       {% include './partials/meals.twig' with {'meals': mostPopularMeals} %}
@@ -10,11 +22,12 @@
       <a class="link" href="/meals/most-popular">More Popular Meals</a>
     </p>
   </section>
+
   <section>
-    <h2 class="title">Recommended</h2>
-    {% include './partials/meals.twig' with {'meals': recommended} %}
+    <h2 class="title">Categories</h2>
+      {% include './partials/categories.twig' with {'categories': categories} %}
     <p>
-      <a class="link" href="/meals/recommended">More Recommended Meals</a>
+      <a class="link" href="/meals/categories">More Categories</a>
     </p>
   </section>
 {% endblock %}

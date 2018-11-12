@@ -2,8 +2,12 @@
   <a href="/">Tasteez</a>
 <ul>
   <li>
-    <a href="/auth/login">Sign In</a>
-    <a href="/auth/register">Sign Up</a>
+    {% if loggedIn == true %}
+      <a href="/auth/logout">Sign Out</a>
+    {% else %}
+      <a href="/auth/login">Sign In</a>
+      <a href="/auth/register">Sign Up</a>
+    {% endif %}
   </li>
 </ul>
 </header>
