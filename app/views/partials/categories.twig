@@ -1,10 +1,10 @@
 <ul class="media-list">
-{% for meal in meals %}
+{% for category in categories %}
   <li class="media-list__item">
-    <a href="/category" class="meal">
-      <img src="{{ meal.thumbnail }}" alt="Meal" class="meal__thumbnail">
-      <div class="meal__footer">
-        {{ meal.name }}
+    <a href="/meals/category/{{ category.category }}" class="category">
+      <img src="{{ category.image }}" alt="Meal" class="category__thumbnail">
+      <div class="category__footer">
+        {{ category.category }} Dishes
       </div>
     </a>
   </li>
