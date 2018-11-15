@@ -2,6 +2,7 @@
 namespace Tasteez\Models;
 use PDO;
 use Tasteez\Models\User;
+
 use DateTime;
 
 class Meal extends Model
@@ -48,14 +49,16 @@ class Meal extends Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function search($searchTerm) {
-    $searchTerm = strtolower("%".$searchTerm."%");
-    $query = "SELECT * FROM meals WHERE name LIKE :searchTerm";
-    $stmt = $db->prepare($query);
-    $stmt->bindParam(":searchTerm", $searchTerm);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  public function search($searchTerm, $offset = null, $limit = null ) {
+    $searchTerm = strtolower("'%".$searchTerm."%'");
+    $query = "SELECT * FROM meals WHERE name LIKE ${searchTerm}";
+
+    if (isset($offset) && isset($limit)) {
+        $query .= " LIMIT ${offset}, ${limit}";
+    }
+    return $this->db->query($query)->fetchAll();
   }
+
   public function likeMeal($mealID, $userID = 0) {
     if ($userID) {
       $liked = new Liked($this->db);

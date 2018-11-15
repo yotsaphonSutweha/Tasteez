@@ -15,6 +15,7 @@ class Meal extends Controller {
     $this->meal = new MealModel($container->db);
     $this->view = $container->view;
     $this->user = new User($container->db);
+    
   }
   public function getMeal($mealID, $userID) {
     $db = $this->db;
@@ -81,7 +82,14 @@ class Meal extends Controller {
   }
 
   public function search($request, $response) {
-    return $this->view->render($response, 'search.twig');
+    if (isset($_GET["query"])) {
+      $query = $request->getQueryParam("query");
+      $query = preg_replace('/[\;\(\)\<\>\/\*]/', ' ', $query);
+      $meals = $this->meal->search($query, null, null);
+      return $this->view->render($response, 'search.twig', ["meals" => $meals]);
+    } else {
+      return $this->view->render($response, 'search.twig');
+    }
   }
 
 
