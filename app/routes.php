@@ -48,12 +48,12 @@ $app->group('/auth', function() {
 // $app->get('/auth/register', 'AuthAPIController:getRegister');
 
 $app->group('/meals', function() {
-  $this->get('/most-popular', 'MealController:mostPopular');
-  $this->get('/discover', 'MealController:discover');
-  $this->get('/favourites', 'MealController:favourites');
-  $this->get('/recommended', 'MealController:recommended');
-  $this->get('/search', 'MealController:search');
-  $this->get('/categories', 'MealController:categories');
-  $this->get('/categories/{name}', 'MealController:category');
-  $this->get('/{id}', 'MealController:meal');
+  $this->get('/most-popular', 'MealsController:mostPopular');
+  $this->get('/discover', 'MealsController:discover');
+  $this->get('/favourites', 'MealsController:favourites');
+  $this->get('/recommended', 'MealsController:recommended');
+  $this->get('/search', 'MealsController:search');
+  $this->get('/categories', 'MealsController:categories');
+  $this->get('/category/{name}', 'MealsController:category');
+  $this->get('/{id}', 'MealsController:meal');
 });

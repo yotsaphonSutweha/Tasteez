@@ -4,8 +4,9 @@ namespace Tasteez\Controllers;
 
 use \Tasteez\Models\Meal as MealModel;
 use Tasteez\Models\User;
+use Tasteez\Models\Category;
 
-class Meal extends Controller {
+class Meals extends Controller {
   protected $meal;
   protected $view;
   private $user;
@@ -65,11 +66,11 @@ class Meal extends Controller {
 
   public function category($request, $response, $args) {
     $name = $args['name'];
-    $meals = $this->meal->category($name);
+    $categoriesModel = new Category($this->container->db);
+    $categories = $categoriesModel->getAll();
+    $meals = $this->meal->getMealsByCategory($name);
     return $this->view->render($response, 'category.twig', [
-      "category" => $meals,
-      "name" => $name, 
-      "loggedIn" => $this->user->isLoggedIn()
+      "meals" => $meals, "category" => $name, "loggedIn" => $this->user->isLoggedIn()
     ]);
   }
 

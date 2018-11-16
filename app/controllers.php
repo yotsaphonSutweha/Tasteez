@@ -45,6 +45,6 @@ $container['RecipeController'] = function($container) {
   return new \Tasteez\Controllers\Recipe($container);
 };
 
-$container['MealController'] = function($container) {
-  return new \Tasteez\Controllers\Meal($container);
+$container['MealsController'] = function($container) {
+  return new \Tasteez\Controllers\Meals($container);
 };

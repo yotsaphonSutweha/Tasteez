@@ -8,12 +8,7 @@ use DateTime;
 class Meal extends Model
 {
   
-  public function getMealDetails($mealId) {
-    // TODO:
-    // get meal ingredients and likes
-    // find out if meal is a favourite or is liked
-    return array("meal" => $mealId);
-  }
+  
 
   public function popular($offset = null, $limit = null) {
     $query = "SELECT *,
@@ -36,17 +31,18 @@ class Meal extends Model
     return $this->query($query);
   }
 
-  public function category($categoryName) {
-    var_dump($categoryName);
+  public function getMealsByCategory($categoryName) {
     $query = "SELECT meals.id, thumbnail, name
-    FROM meals
-    INNER JOIN categories
-    ON meals.cat = categories.category
-    WHERE meals.cat = '${categoryName}'";
-    $stmt = $this->db->prepare($query);
-    $stmt->bindParam(":categoryName", $categoryName);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      FROM meals
+      INNER JOIN categories
+      ON meals.cat = categories.category
+      WHERE meals.cat = '${categoryName}'";
+
+      if (isset($offset) && isset($limit)) {
+          $query .= " LIMIT ${offset}, ${limit}";
+      }
+
+      return $this->db->query($query)->fetchAll();
   }
 
   public function search($searchTerm, $offset = null, $limit = null ) {

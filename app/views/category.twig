@@ -3,6 +3,6 @@
 {% extends './templates/main.twig' %}
 
 {% block main %}
-   <h2 class="title">{{ name }} Dishes</h2>
-    {% include './partials/meals.twig' with { "meals" : category } %}
+  <h2 class="title">{{ category }} Dishes </h2>
+  {% include './partials/meals.twig' with { "meals" : meals } %}
 {% endblock %}
