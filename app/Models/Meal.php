@@ -2,7 +2,10 @@
 namespace Tasteez\Models;
 use PDO;
 use Tasteez\Models\User;
-
+use Tasteez\Models\Favourite;
+use Tasteez\Models\Ingredients;
+use Tasteez\Models\Liked;
+use Tasteez\Models\Comment;
 use DateTime;
 
 class Meal extends Model
