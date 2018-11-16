@@ -7,8 +7,24 @@ use DateTime;
 
 class Meal extends Model
 {
-  
-  
+  public function getMeal($mealID, $userID) {
+    $db = $this->db;
+
+    $favouriteModel = new Favourite($db);
+    $ingredientModel = new Ingredient($db);
+    $likedModel = new Liked($db);
+    $commentModel = new Comment($db);
+
+    $meal = $this->findById($mealID);
+
+    $meal["ingredients"] = $ingredientModel->getMealIngredients($mealID);
+    $meal["comments"] = $commentModel->getAll($mealID, $userID);
+    $meal["isFavourite"] = $favouriteModel->isFavourite($userID, $mealID);
+    $meal["likes"] = $likedModel->getMealLikes($mealID, $userID);
+    $meal["userID"] = $userID;
+
+    return $meal;
+  }
 
   public function popular($offset = null, $limit = null) {
     $query = "SELECT *,
