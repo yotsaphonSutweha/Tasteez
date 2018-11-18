@@ -35,6 +35,18 @@ class Meals extends Controller {
 
     return $meal;
   }
+  
+  public function meal($request, $response, $args) {
+    $userID = $this->user->getID();
+    $mealDetails = $this->meal->getMeal($args['id'], $userID);
+
+    return $this->view->render($response, 'meal.twig', [
+      "meal" => $mealDetails,
+      "comments" => $mealDetails["comments"],
+      "loggedIn" => $this->user->isLoggedIn(),
+    ]);
+  }
+
 
   public function mostPopular($request, $response, $args) {
     $meals = $this->meal->popular();

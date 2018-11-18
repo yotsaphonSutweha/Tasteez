@@ -57,3 +57,14 @@ $app->group('/meals', function() {
   $this->get('/category/{name}', 'MealsController:category');
   $this->get('/{id}', 'MealsController:meal');
 });
+
+$app->group('/meal/{id}', function() {
+  // NOTE: HTML forms only support the http methods GET and POST
+  $this->get('' , 'MealController:meal');
+  $this->post('/add-comment' , 'MealController:addComment');
+  $this->post('/delete-comment' , 'MealController:deleteComment');
+  $this->post('/like' , 'MealController:likeMeal');
+  $this->post('/dislike' , 'MealController:dislikeMeal');
+  $this->post('/add-favourite' , 'MealController:addToFavourites');
+  $this->post('/delete-favourite' , 'MealController:removeFromFavourites');
+});

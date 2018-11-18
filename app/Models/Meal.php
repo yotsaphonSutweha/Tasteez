@@ -21,7 +21,6 @@ class Meal extends Model
     $meal = $this->findById($mealID);
 
     $meal["ingredients"] = $ingredientModel->getMealIngredients($mealID);
-    $meal["comments"] = $commentModel->getAll($mealID, $userID);
     $meal["isFavourite"] = $favouriteModel->isFavourite($userID, $mealID);
     $meal["likes"] = $likedModel->getMealLikes($mealID, $userID);
     $meal["userID"] = $userID;
