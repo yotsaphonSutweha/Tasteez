@@ -6,7 +6,9 @@ namespace Tasteez\Controllers;
 class Account extends Controller
 {
   private $user;
-  function __invoke($request, $response) {
+
+  
+  public function getAccount($request, $response) {
     $this->user = new \Tasteez\Models\User($this->container->db);
     if ($this->user->isLoggedIn()) {
       $this->user = new \Tasteez\Models\User($this->container->db);
@@ -19,6 +21,9 @@ class Account extends Controller
       );
     } else {
       return $response->withRedirect('/auth/login');
-    } 
+    }
+
+    
   }
+
 }

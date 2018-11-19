@@ -4,6 +4,9 @@
 
 {% block main %}
   <h2 class="title">Favourites</h2>
-    {% include './partials/meals.twig' with { 'meals' : favouriteMeals}%}
-    <a class="link" href="/">View More</a>
+  {% if meals|length > 0 %}
+    {% include './partials/meals.twig' with { 'meals' : meals}%}
+    {% else %}  
+    <p>You havn't favouritised any meals yet</p>
+  {% endif %}
 {% endblock %}

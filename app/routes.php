@@ -68,3 +68,7 @@ $app->group('/meal/{id}', function() {
   $this->post('/add-favourite' , 'MealController:addToFavourites');
   $this->post('/delete-favourite' , 'MealController:removeFromFavourites');
 });
+
+$app->group('/user', function() {
+  $this->get('/account', 'AccountController:getAccount');
+});

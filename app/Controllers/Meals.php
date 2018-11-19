@@ -64,11 +64,20 @@ class Meals extends Controller {
   }
 
   public function favourites($request, $response) {
-    $meals = [];
-    return $this->view->render($response, 'favourites.twig', [
-      "meals" => $meals,
-      "loggedIn" => $this->user->isLoggedIn()
-    ]);
+
+    if($this->user->isLoggedIn()) {
+      $meals = $this->meal->getFavorites($this->user->getID());
+
+      return $this->view->render($response, 'favourites.twig', [
+        "meals" => $meals,
+        "loggedIn" => $this->user->isLoggedIn()
+      ]);
+
+    } else {
+      return $response->withRedirect('/auth/login');
+    }
+
+    $meals = $this->meal->getFavorites($this->user->getID());
 
   }
 
