@@ -43,6 +43,7 @@ $app->group('/auth', function() {
   $this->post('/register', 'AuthController:postRegister');
   $this->get('/login', 'AuthController:getLogin');
   $this->post('/login', 'AuthController:postLogin');
+  $this->get('/logout', 'AuthController:logout');
 });
 //
 // $app->get('/auth/register', 'AuthAPIController:getRegister');
