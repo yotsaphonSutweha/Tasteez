@@ -1,26 +1,23 @@
 <?php
 
 namespace Tasteez\Controllers\Api;
-use Tasteez\Models\User;
-use Slim\Exception\MethodNotAllowedException;
 
-class Meals extends Controller {
+class User {
 
-  protected $user;
   protected $container;
 
   function __construct($container) {
-    $this->user = new User($container->db);
     $this->container = $container;
   }
 
-  public function getFavorites($request, $response, $args) {
+  public function updateEmail($request, $response) {
+    $body = $request->getParsedBody();
+    $oldEmail = $body['oldEmail'];
+    $email = $body['email'];
     $user = new \Tasteez\Models\User($this->container->db);
-
     if ($user->isLoggedIn()) {
-        $userDetails = json_decode($_COOKIE['cookie'], true);
-        $userId = $userDetails['id'];
-        return $response->withJson($user->getFavorites($userId));
+        $id = json_decode($_COOKIE['cookie'], true)['id'];
+        return $response->withJson($user->updateEmail($oldEmail, $email, $id));
     } else {
         return $response->withJson(array("Message" => "User not logged in!"));
     }
@@ -33,13 +30,14 @@ class Meals extends Controller {
     $user = new \Tasteez\Models\User($this->container->db);
     if ($user->isLoggedIn()) {
         $id = json_decode($_COOKIE['cookie'], true)['id'];
-        return $response->withJson($user->updatePassword($oldPassword, $password, $id));
+        $result = $user->updatePassword($oldPassword, $password, $id);
+        return $response->withJson($result, $result["status"]);
     } else {
-        return $response->withJson(array("Message" => "User not logged in!"));
+        return $response->withJson(array("Message" => "User not logged in!"), 401);
     }
    }
 
-   public function deleteUser($request, $response, $args) {
+  public function deleteUser($request, $response, $args) {
     $userId = $args['userId'];
     $user = new \Tasteez\Models\User($this->container->db);
     if ($user->isLoggedIn() && $user->validateCookie() && json_decode($_COOKIE['cookie'], true)['id'] === $userId) {
@@ -50,6 +48,5 @@ class Meals extends Controller {
       return $response->withJson(array("Message" => "User not logged in!"));
     }
   }
-
 
 }

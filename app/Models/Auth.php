@@ -1,12 +1,14 @@
 <?php
 
-class Auth 
+namespace Tasteez\Models;
+
+class Auth extends Model
 {
 
-      public function __construct(PDO $db)
-  {
+      public function __construct($db)
+    {
       $this->db = $db ;
-  }
+    }
 
 
     public function signUp($username, $email, $password, $confirmPassword) {

@@ -4,7 +4,20 @@
 
 {% block main %}
   <h2 class="title">User Account</h2>
-  
+  <h3 id="message">{{ userId }}</h3>
+  {% if emailUpdated == true %}
+    <h4>Your email is updated</h4>
+  {% elseif emailError == true %}
+    <h4>Make sure to type in correct emails!</h4>
+  {% elseif passwordUpdated == true %}
+    <h4>Your password is updated</h4>
+  {% elseif passwordError == true %}
+    <h4>Make sure to type in correct passwords!</h4>
+  {% elseif delete == true %}
+    <h4>Your account is successfully deleted!</h4>    
+  {% elseif deleteError == true %}
+    <h4>Please try again.</h4>  
+  {% endif %}
     <style media="screen">
       .account .input {
         border: 1px solid #f5f5f5;
@@ -15,34 +28,101 @@
         padding: .7em 1em;
       }
     </style>
-    
-    <form class="form" action="/account/update-email" method="post">
       <div class="box">
         <h3 class="h4">Update Email</h3>
-        <form class="form" action="index.html" method="post">
-          <div class="input">
-            <input placeholder="New Email" class="input__input" type="text" name="email" value="">
+        <div class="form" >
+        <div class="input">
+            <input id="oldEmail" placeholder="Old Email" class="input__input" type="text" name="oldEmail" value="">
           </div>
-          <button class="button" type="submit" >Update Email</button>
-        </form>
+
+          <div class="input">
+            <input id="newEmail" placeholder="New Email" class="input__input" type="text" name="email" value="">
+          </div>
+          
+          <button class="button" type="submit" name="update" onclick="updateEmail()">Update Email</button>
+        </div>
       </div>
-    </form>
+ 
     {# Change HTML to post to the route specified in index.php #}
     <div class="box">
       <h3 class="h4">Update Password</h3>
-      <form class="form" action="index.html" method="post">
+      <div class="input">
+            <input id="oldPassword" placeholder="Old Password" class="input__input" type="password" name="oldPassword" value="">
+          </div>
+      <div class="form">
         <div class="input">
-          <input placeholder="New Password" class="input__input" type="text" name="password" value="">
+          <input id="newPassword" placeholder="New Password" class="input__input" type="password" name="password" value="">
         </div>
-        <input class="button" type="button" name="" value="Update Password">
-      </form>
+        
+        <input class="button" type="submit" name="" value="Update Password" onclick="updatePassword()">
+      </div>
     </div>
-    
-     <div class="box">
+
+    <div class="box">
       <h3 class="h4">Delete Account</h3>
-      <form class="form" action="index.html" method="post">
-        <input class="button" type="button" name="" value="Delete Account">
+      <form class="form" action="/user/delete-account/{{ userId }}" method="post">
+        <input class="button" type="submit" name="delete" value="Delete Account">
       </form>
     </div>
+
+  <script>
+    function updateEmail() {
+      let oldEmail = document.getElementById("oldEmail");    
+      let newEmail = document.getElementById("newEmail");
+
+      var url = '/api/user/update-email';
+        
+      var xhr = new XMLHttpRequest();
+      xhr.open("PUT", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              var res = JSON.parse(xhr.responseText);
+              oldEmail.value = '';
+              newEmail.value = '';
+              document.getElementById("message").innerHTML = res.message;
+
+          } else if(xhr.status === 400) {
+            var res = JSON.parse(xhr.responseText);
+            document.getElementById("message").innerHTML = res.message;
+          }
+      };
+      var data = JSON.stringify({ oldEmail: oldEmail.value, email: newEmail.value });
+      xhr.send(data);
+
+    }
+
+
+    function updatePassword() {
+      let oldPassword = document.getElementById("oldPassword");    
+      let newPassword = document.getElementById("newPassword");
+
+      var url = '/api/user/update-password';
+        
+      var xhr = new XMLHttpRequest();
+      xhr.open("PUT", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var res = JSON.parse(xhr.responseText);
+            console.log(res.message);
+            oldPassword.value = '';
+            newPassword.value = '';
+            document.getElementById("message").innerHTML = res.message;
+
+          } else if(xhr.status === 400) {
+            var res = JSON.parse(xhr.responseText);
+            document.getElementById("message").innerHTML = res.message;
+
+          }
+      };
+      var data = JSON.stringify({ oldPassword: oldPassword.value, password: newPassword.value });
+      console.log(data)
+      xhr.send(data);
+
+
+    }
+
+  </script>
 
 {% endblock %}

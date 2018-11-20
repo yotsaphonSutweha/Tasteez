@@ -72,4 +72,5 @@ $app->group('/meal/{id}', function() {
 
 $app->group('/user', function() {
   $this->get('/account', 'AccountController:getAccount');
+  $this->post('/delete-account/{userId}', 'AccountController:postDeleteAccount');
 });
