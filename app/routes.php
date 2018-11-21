@@ -25,6 +25,9 @@ $app->group('/api', function() {
     $this->delete('/delete-account/{userId}', 'UserAPIController:deleteUser');
   });
 
+  $this->group('/contact', function() {
+    $this->post('', 'ContactApiController:sendEmail');
+  });
 
 });
 

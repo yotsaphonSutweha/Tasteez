@@ -7,10 +7,22 @@ $container['MealsAPIController'] = function($container) {
   return new \Tasteez\Controllers\Api\Meals($container);
 };
 
+$container['MealAPIController'] = function($container) {
+  return new \Tasteez\Controllers\Api\Meal($container);
+};
 
 $container['UserAPIController'] = function($container) {
   return new \Tasteez\Controllers\Api\User($container);
 };
+
+$container['ContactApiController'] = function($container) {
+  return new \Tasteez\Controllers\Api\Contact($container);
+};
+
+$container['AuthAPIController'] = function($container) {
+  return new \Tasteez\Controllers\Api\Auth($container);
+};
+
 
 // =============================================================================
 // View Controllers
