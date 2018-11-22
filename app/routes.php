@@ -12,10 +12,16 @@ $app->group('/api', function() {
     $this->get('/categories', 'MealsAPIController:categories');
     $this->get('/categories/{id}', 'MealsAPIController:category');
     $this->get('/search/{searchTerm}', 'MealsAPIController:search');
-    $this->post('/{id}/favorite', 'MealsAPIController:favoriteRecipe');
-    $this->post('/{id}/like', 'MealsAPIController:likeRecipe');
-    $this->post('/{id}/add-comment', 'MealsAPIController:addComment');
-    $this->get('/{id}', 'MealsAPIController:getMealDetails');
+  });
+
+  $this->group('/meal/{id}', function() {
+    $this->get('', 'MealAPIController:getMealDetails');
+    $this->post('/add-favourite', 'MealAPIController:favourites');
+    $this->post('/add-comment', 'MealAPIController:addComment');
+    $this->delete('/delete-comment', 'MealAPIController:deleteComment');
+    // $this->get('/comments', 'MealAPIController:removeComment');
+    $this->post('/like', 'MealAPIController:likeMeal');
+    $this->delete('/dislike', 'MealAPIController:dislikeMeal');
   });
 
   $this->group('/user', function() {

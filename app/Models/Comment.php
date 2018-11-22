@@ -13,7 +13,7 @@ class Comment extends Model {
       FROM comments
       INNER JOIN users
       ON users.id = comments.user_id
-      WHERE comments.recipe_id = '${mealID}'";
+      WHERE comments.recipe_id = '${mealID}' ORDER BY comments.date_added DESC";
 
     $comments = $this->db->query($query)->fetchAll();
     $comment["usersComment"] = false;
