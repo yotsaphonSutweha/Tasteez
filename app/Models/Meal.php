@@ -137,11 +137,13 @@ class Meal extends Model
   public function addComment($comment, $mealID, $userID) {
     $commentModel = new Comment($this->db);
     $commentModel->addComment($comment, $mealID, $userID);
+    return $commentModel->getAll($mealID, $userID); 
   }
 
-  public function deleteComment($mealID, $userID) {
+  public function deleteComment($commentID, $userID, $mealID) {
     $commentModel = new Comment($this->db);
-    $commentModel->deleteComment($mealID, $userID);
+    $commentModel->deleteComment($commentID, $userID);
+    return $commentModel->getAll($mealID, $userID);
   }
 
 }

@@ -65,7 +65,6 @@ class Meal extends Controller
 
       public function addComment($request, $response, $args) {
         $meal = new \Tasteez\Models\Meal($this->container->db);
-        $commentModel = new \Tasteez\Models\Comment($this->db);
         if ($this->user->isLoggedIn()) {
           $recipeId = $args['id'];
           $body = $request->getParsedBody();

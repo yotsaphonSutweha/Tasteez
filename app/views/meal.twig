@@ -56,7 +56,7 @@
             <div class="add-comment__form" >
               <input type="hidden" name="meal_id" value="{{ meal.id }}">
               <textarea class="add-comment__input" name="comment" id="comment-message"></textarea>
-              <input class="button add-comment__submit" type="submit" name="" onclick="addComment({{ meal.id }})" value="Leave Comment">
+              <input class="button add-comment__submit" type="submit" name="" onclick="addComment()" value="Leave Comment">
               <input class="meal-id" type="hidden" name="meal-id" value="{{ meal.id }}">
             </div>
 
@@ -115,7 +115,7 @@
         var message = document.getElementById("comment-message");
         console.log({{ meal.id }});
         console.log({{ meal.userID }});
-        
+        console.log(message.value)
         var url = '/api/meal/' + {{ meal.id }} + '/add-comment';
 
         var xhr = new XMLHttpRequest();
@@ -175,7 +175,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var res = JSON.parse(xhr.responseText);
-                console.log(res.comments);
+                console.log(res);
                 var allComments = ""
 
                 for(var i = 0; i < res.comments.length; i++) {
