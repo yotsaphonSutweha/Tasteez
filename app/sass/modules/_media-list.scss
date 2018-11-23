@@ -5,7 +5,8 @@
 
   &__item {
     margin-bottom: 3%;
-
+    width: 48%;
+    display: inline-block;
     @media screen and (min-width: 700px) {
       display: inline-block;
       width: 31.333333333333332%;
