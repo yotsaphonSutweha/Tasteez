@@ -24,6 +24,12 @@ $app->group('/api', function() {
     $this->delete('/dislike', 'MealAPIController:dislikeMeal');
   });
 
+  $this->group('/auth', function() {
+    $this->post('/login', 'AuthAPIController:login');
+    $this->post('/logout', 'AuthAPIController:logout');
+    $this->post('/register', 'AuthAPIController:register');
+  });
+
   $this->group('/user', function() {
     $this->get('/favorites', 'UserAPIController:getFavorites');
     $this->put('/update-password', 'UserAPIController:updatePassword');

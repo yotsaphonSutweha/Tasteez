@@ -5,9 +5,16 @@ namespace Tasteez\Controllers\Api;
 class Auth
 {
 
+  protected $container;
+
+  function __construct($container)
+  {
+    $this->container = $container;
+  }
+
   public function login($request, $response) {
     $data = json_decode($request->getBody());
-    $auth = new Auth($this->db);
+    $auth = new \Tasteez\Models\Auth($this->container->db);
 
     $username = $data->username;
     $email = $data->email;
@@ -21,12 +28,14 @@ class Auth
   }
 
   public function logout($request, $response) {
-    return $response->write('all meals');
+    $auth = new \Tasteez\Models\Auth($this->container->db);
+    $auth->logout();
+    return $response->withJson(array("message" => "Successfully logged out!"));
   }
 
   public function register($request, $response) {
     $data = json_decode($request->getBody());
-    $auth = new Auth($this->db);
+    $auth = new \Tasteez\Models\Auth($this->container->db);
 
     $username = $data->username;
     $email = $data->email;
