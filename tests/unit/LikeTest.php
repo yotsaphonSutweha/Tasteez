@@ -1,6 +1,6 @@
 <?php 
 use PHPUnit\Framework\TestCase;
-class UserTest extends TestCase
+class UserTe extends TestCase
 {
     private $DB_HOST="db4free.net";
     private $DB_USER="nciscript";

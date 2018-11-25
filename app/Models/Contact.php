@@ -10,9 +10,9 @@ use PDO;
 
 class Contact {
 
-  public function sendEmail($email = "", $subject = "", $message = "") {
-    if($email == "" || $subject == "" || $message == "") {
-        return array("message" => "Some required fields have been left blank!");
+  public function sendEmail($email = "", $name = "", $message = "") {
+    if($email == "" || $name == "" || $message == "") {
+        return array("message" => "Some required fields have been left blank!", "status" => 400);
     } else {
         $mail = new PHPMailer(true);
 
@@ -28,13 +28,13 @@ class Contact {
 
                 $mail->setFrom($from);
                 $mail->addAddress($from);
-                $mail->Subject = $subject;
-                $mail->Body = "New message from $email.\n$message";
+                $mail->Subject = "New email from user of Tasteez";
+                $mail->Body = "New message from $name ($email).\n$message";
 
                 $mail->send();
-                return array("message" => "Email Successfully sent!");
+                return array("message" => "Email Successfully sent!", "status" => 200);
             } catch (Exception $e) {
-                return array("message" => "Email Could not be sent!", "error" => $e);
+                return array("message" => "Email Could not be sent!", "error" => $e, "status" => 500);
             }
         }
     }
