@@ -64,10 +64,6 @@ class Meals extends Controller {
 
   }
 
-  public function recommended($request, $response) {
-    return $response->write("<h1> 🚧  👷 Under Construction 👷 🚧 </h1>");
-  }
-
   public function category($request, $response, $args) {
     $name = $args['name'];
     $categoriesModel = new Category($this->container->db);
@@ -97,5 +93,20 @@ class Meals extends Controller {
     }
   }
 
+  public function recommended($request, $response) {
 
+    if($this->user->isLoggedIn()) {
+      $id = $this->user->getID();
+      $meals = $this->meal->recommended($id);
+      return $this->view->render($response, 'recommended.twig', [
+        "recommended" => $meals,
+        "loggedIn" => $this->user->isLoggedIn()
+      ]);
+
+    } else {
+      return $response->withRedirect('/auth/login');
+    }
+
+    
+  }
 }

@@ -31,4 +31,17 @@ class Meals extends Controller
     $category = $args['name'];
     return $response->withJson($meal->getMealsByCategory($category));
   }
+
+  public function recommended($request, $response) {
+    $meal = new \Tasteez\Models\Meal($this->container->db);
+    $user = new \Tasteez\Models\User($this->container->db);
+      if ($this->user->isLoggedIn()) {
+          $id = json_decode($_COOKIE['cookie'], true)['id'];
+          return $response->withJson($meal->recommended($id));
+      } else {
+          return $response->withJson(array("Message" => "User not logged in!"));
+      }
+
+    
+  }
 }

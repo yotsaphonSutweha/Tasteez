@@ -9,6 +9,7 @@ $app->group('/api', function() {
   $this->group('/meals', function() {
     $this->get('/all', 'MealsAPIController:all');
     $this->get('/popular', 'MealsAPIController:popular');
+    $this->get('/recommended', 'MealsAPIController:recommended');
     $this->get('/categories', 'MealsAPIController:categories');
     $this->get('/categories/{id}', 'MealsAPIController:category');
     $this->get('/search/{searchTerm}', 'MealsAPIController:search');
@@ -49,7 +50,6 @@ $app->group('/api', function() {
 
 $app->get('/', 'HomeController');
 $app->get('/contact', 'ContactController');
-$app->get('/account', 'AccountController');
 $app->get('/privacy-policy', 'PrivacyPolicyController');
 $app->get('/search', 'SearchController');
 
