@@ -1,6 +1,6 @@
 <?php 
 use PHPUnit\Framework\TestCase;
-class FavouriteEndpointTest extends TestCase
+class SignUpEndpointTest extends TestCase
 { 
     private $curl;
     private $body;
@@ -12,9 +12,8 @@ class FavouriteEndpointTest extends TestCase
     private $data;
     private $user;
     private $auth;
-    private $favourite;
     private static $conn;
-    private $recipeId;
+
     /*
     * @beforeClass
     */
@@ -48,13 +47,11 @@ class FavouriteEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        $this->recipeId = "52809";
 
         $this->user = new Tasteez\Models\User(self::$conn);
         $this->auth = new Tasteez\Models\Auth(self::$conn);
-        $this->favourite = new Tasteez\Models\Favourite(self::$conn); 
 
-        $previousUser = $this->user->findByName("test", "test@test.com");
+        $previousUser = $this->user->findByName("test", "test");
         $previousUserID = (int) $previousUser["id"];
 
         if($previousUser != null) {
@@ -69,41 +66,31 @@ class FavouriteEndpointTest extends TestCase
         echo "I set up many times\n";
     }
 
-    // Tests
-    public function testFavouriteApiBody() {
-        $this->data = json_encode(array("username" => "test", "password" => "test"));
-        $this->url = "http://localhost:8080/api/auth/login";
+    public function testSignUpApiBody() {
+        $this->user = new Tasteez\Models\User(self::$conn);
+        $this->user->deleteUser($this->id);
+        $this->data = json_encode(array("username" => "test", "email" => "test", "password" => "test", "confirmPassword" => "test"));
+        $this->url = "http://localhost:8080/api/auth/register";
         $this->curl = curl_init();  
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
-        curl_setopt($this->curl, CURLOPT_COOKIEJAR, COOKIE_FILE);   
-	    curl_setopt($this->curl, CURLOPT_COOKIEFILE, COOKIE_FILE);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
-        $this->body = curl_exec($this->curl);
-        $this->url  = "http://localhost:8080/api/meal/" . $this->recipeId . "/add-favourite"; 
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_URL, $this->url );
         $this->body = curl_exec($this->curl);
         curl_close($this->curl);
-        $this->assertInternalType('array', json_decode($this->body));
+        $this->testUser = $this->user->findByName("test", "test");
+        $this->id = (int) $this->testUser["id"];
+        $this->user->deleteUser($this->id);
+        $this->assertInternalType('object', json_decode($this->body));
     }
-    
 
-    
-    public function testFavouriteApiStatus(){
-        $this->data = json_encode(array("username" => "test", "password" => "test"));
-        $this->url = "http://localhost:8080/api/auth/login";
+    public function testSignUpApiStatus() {
+        $this->user = new Tasteez\Models\User(self::$conn);
+        $this->user->deleteUser($this->id);
+        $this->data = json_encode(array("username" => "test", "email" => "test", "password" => "test", "confirmPassword" => "test"));
+        $this->url = "http://localhost:8080/api/auth/register";
         $this->curl = curl_init();  
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
-        curl_setopt($this->curl, CURLOPT_COOKIEJAR, COOKIE_FILE);   
-	    curl_setopt($this->curl, CURLOPT_COOKIEFILE, COOKIE_FILE);
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_URL, $this->url);
-        $this->body = curl_exec($this->curl);
-        $this->url  = "http://localhost:8080/api/meal/" . $this->recipeId . "/add-favourite"; 
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
@@ -111,8 +98,12 @@ class FavouriteEndpointTest extends TestCase
         $this->statusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         curl_close($this->curl);
         $this->expectedOutcome = 200;
+        $this->testUser = $this->user->findByName("test", "test");
+        $this->id = (int) $this->testUser["id"];
+        $this->user->deleteUser($this->id);
         $this->assertEquals($this->statusCode, $this->expectedOutcome);
     }
+   
 
     /*
     * @afterClass
@@ -126,10 +117,7 @@ class FavouriteEndpointTest extends TestCase
     * @after
     */
     public function tearDown() {
-        $user = new Tasteez\Models\User(self::$conn);
-        $favourite = new Tasteez\Models\Favourite(self::$conn);
-        $user->deleteUser($this->id);
-        $favourite->removeFavourite($this->id, $this->recipeId); 
+        $this->user->deleteUser($this->id);
         $this->curl = null;
         $this->body = null;
         $this->testUser = null;

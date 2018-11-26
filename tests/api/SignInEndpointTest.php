@@ -1,6 +1,6 @@
 <?php 
 use PHPUnit\Framework\TestCase;
-class FavouriteEndpointTest extends TestCase
+class SignInEndpointTest extends TestCase
 { 
     private $curl;
     private $body;
@@ -12,9 +12,8 @@ class FavouriteEndpointTest extends TestCase
     private $data;
     private $user;
     private $auth;
-    private $favourite;
     private static $conn;
-    private $recipeId;
+
     /*
     * @beforeClass
     */
@@ -48,11 +47,9 @@ class FavouriteEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        $this->recipeId = "52809";
 
         $this->user = new Tasteez\Models\User(self::$conn);
         $this->auth = new Tasteez\Models\Auth(self::$conn);
-        $this->favourite = new Tasteez\Models\Favourite(self::$conn); 
 
         $previousUser = $this->user->findByName("test", "test@test.com");
         $previousUserID = (int) $previousUser["id"];
@@ -70,40 +67,32 @@ class FavouriteEndpointTest extends TestCase
     }
 
     // Tests
-    public function testFavouriteApiBody() {
+    public function testSignInApiBody() {
+        $this->auth = new Tasteez\Models\Auth(self::$conn); 
+        $this->user = new Tasteez\Models\User(self::$conn); 
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
-        curl_setopt($this->curl, CURLOPT_COOKIEJAR, COOKIE_FILE);   
-	    curl_setopt($this->curl, CURLOPT_COOKIEFILE, COOKIE_FILE);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
         $this->body = curl_exec($this->curl);
-        $this->url  = "http://localhost:8080/api/meal/" . $this->recipeId . "/add-favourite"; 
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_URL, $this->url );
-        $this->body = curl_exec($this->curl);
         curl_close($this->curl);
-        $this->assertInternalType('array', json_decode($this->body));
+        $this->assertInternalType('object', json_decode($this->body));
     }
     
 
     
-    public function testFavouriteApiStatus(){
+    public function testSignInApiStatus() {
+        $this->auth = new Tasteez\Models\Auth(self::$conn); 
+        $this->user = new Tasteez\Models\User(self::$conn); 
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
         curl_setopt($this->curl, CURLOPT_COOKIEJAR, COOKIE_FILE);   
 	    curl_setopt($this->curl, CURLOPT_COOKIEFILE, COOKIE_FILE);
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_URL, $this->url);
-        $this->body = curl_exec($this->curl);
-        $this->url  = "http://localhost:8080/api/meal/" . $this->recipeId . "/add-favourite"; 
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
@@ -113,7 +102,7 @@ class FavouriteEndpointTest extends TestCase
         $this->expectedOutcome = 200;
         $this->assertEquals($this->statusCode, $this->expectedOutcome);
     }
-
+    
     /*
     * @afterClass
     */
@@ -122,14 +111,11 @@ class FavouriteEndpointTest extends TestCase
         echo "I teardown once\n";
     }
 
-     /*
+    /*
     * @after
     */
     public function tearDown() {
-        $user = new Tasteez\Models\User(self::$conn);
-        $favourite = new Tasteez\Models\Favourite(self::$conn);
-        $user->deleteUser($this->id);
-        $favourite->removeFavourite($this->id, $this->recipeId); 
+        $this->user->deleteUser($this->id);
         $this->curl = null;
         $this->body = null;
         $this->testUser = null;

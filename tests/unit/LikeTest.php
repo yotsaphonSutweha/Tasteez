@@ -1,11 +1,11 @@
 <?php 
 use PHPUnit\Framework\TestCase;
-class UserTe extends TestCase
+class LikeTest extends TestCase
 {
     private $DB_HOST="db4free.net";
-    private $DB_USER="nciscript";
+    private $DB_USER="nciscript_test";
     private $DB_PASS="letmein123";
-    private $DB_NAME="recipies";
+    private $DB_NAME="recipes_test";
     private $conn;
     private $testUser;
     private $id = 0;
