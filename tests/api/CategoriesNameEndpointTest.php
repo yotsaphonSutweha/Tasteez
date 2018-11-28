@@ -18,10 +18,11 @@ class CategoriesNameEndpointTest extends TestCase
         $this->statusCode = 0;
         $this->expectedOutcome = 0;
         $this->curl = curl_init();
-        echo "I set up many times\n";
+        echo "Set up for Categories Name endpoint\n";
     }
 
     public function testCategoriesNameApiBody(){
+        echo "Categories Name endpoint api body is running...\n";
         $this->url  = "http://localhost:8080/api/meals/categories/Beef";
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -34,6 +35,7 @@ class CategoriesNameEndpointTest extends TestCase
 
     
     public function testCategoriesNameApiStatus(){
+        echo "Categories Name endpoint api status is running...\n";
         $this->url  = "http://localhost:8080/api/meals/categories/Beef";
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HEADER  , true); 
@@ -54,6 +56,6 @@ class CategoriesNameEndpointTest extends TestCase
         $this->body = "";
         $this->url = "";
         $this->curl = null;
-        echo "I teardown many times\n";
+        echo "Teardown for Categories Name endpoint\n";
     }
 }

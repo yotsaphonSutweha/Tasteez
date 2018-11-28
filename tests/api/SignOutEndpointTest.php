@@ -26,11 +26,11 @@ class SignOutEndpointTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            var_dump("Set up: Connected successfully"); 
+            echo "Set up: Connected successfully\n"; 
         } catch(PDOException $e) {
-            var_dump("Set up: Connection failed: " . $e->getMessage());
+            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
         }
-        echo "I set up once\n";
+        echo "Set up for Sign Out endpoint\n";
     }
 
     /*
@@ -56,18 +56,19 @@ class SignOutEndpointTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            var_dump("Set up: user Deleted");
+            echo "Set up: user Deleted\n";
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        var_dump("Set up: user Created");
+        echo "Set up: user Created\n";
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
-        echo "I set up many times\n";
+        echo "Set up for each Sign Out endpoint test\n";
     }
 
     // Tests
     public function testSignOutApiBody() {
+        echo "Sign Out endpoint api body is running...\n";
         $this->auth = new Tasteez\Models\Auth(self::$conn); 
         $this->user = new Tasteez\Models\User(self::$conn); 
         $this->data = json_encode(array("username" => "test", "password" => "test"));
@@ -91,6 +92,7 @@ class SignOutEndpointTest extends TestCase
 
     
     public function testSignOutApiStatus() {
+        echo "Sign Out endpoint api status is running...\n";
         $this->auth = new Tasteez\Models\Auth(self::$conn); 
         $this->user = new Tasteez\Models\User(self::$conn); 
         $this->data = json_encode(array("username" => "test", "password" => "test"));
@@ -119,7 +121,7 @@ class SignOutEndpointTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "I teardown once\n";
+        echo "Teardown for Sign Out endpoint\n";
     }
 
      /*
@@ -137,6 +139,6 @@ class SignOutEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "I teardown many times\n";
+        echo "Teardown for each Sign Out endpoint test\n";
     }
 }

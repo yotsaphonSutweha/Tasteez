@@ -27,11 +27,11 @@ class FavouriteEndpointTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            var_dump("Set up: Connected successfully"); 
+            echo "Set up: Connected successfully\n"; 
         } catch(PDOException $e) {
-            var_dump("Set up: Connection failed: " . $e->getMessage());
+            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
         }
-        echo "I set up once\n";
+        echo "Set up for Favourite endpoint\n";
     }
 
     /*
@@ -59,11 +59,11 @@ class FavouriteEndpointTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            var_dump("Set up: user Deleted");
+            echo "Set up: user Deleted\n";
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        var_dump("Set up: user Created");
+        echo "Set up: user Created\n";
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
         echo "I set up many times\n";
@@ -71,6 +71,7 @@ class FavouriteEndpointTest extends TestCase
 
     // Tests
     public function testFavouriteApiBody() {
+        echo "Favourite endpoint api body is running...\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -93,6 +94,7 @@ class FavouriteEndpointTest extends TestCase
 
     
     public function testFavouriteApiStatus(){
+        echo "Favourite endpoint api status is running...\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -119,7 +121,7 @@ class FavouriteEndpointTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "I teardown once\n";
+        echo "Teardown for Favourite endpoint\n";
     }
 
      /*
@@ -140,6 +142,6 @@ class FavouriteEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "I teardown many times\n";
+        echo "Teardown for each Favourite endpoint test\n";
     }
 }

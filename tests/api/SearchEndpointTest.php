@@ -19,10 +19,11 @@ class SearchEndpointTest extends TestCase
         $this->expectedOutcome = 0;
         $this->statusCode = 0;
         $this->curl = curl_init();
-        echo "I set up many times\n";
+        echo "Set up for Search endpoint\n";
     }
 
     public function testSearchApiBody() {
+        echo "Search endpoint api body is running...\n";
         $this->url  = "http://localhost:8080/api/meals/search/Beef";
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -35,6 +36,7 @@ class SearchEndpointTest extends TestCase
 
     
     public function testSearchApiStatus(){
+        echo "Search endpoint api status is running...\n";
         $this->url  = "http://localhost:8080/api/meals/search/Beef";
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HEADER  , true); 
@@ -54,6 +56,6 @@ class SearchEndpointTest extends TestCase
         $this->body = "";
         $this->url = "";
         $this->curl = null;
-        echo "I teardown many times\n";
+        echo "Teardown for Search endpoint\n";
     }
 }

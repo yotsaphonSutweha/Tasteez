@@ -26,11 +26,11 @@ class UserAccountEndpointsTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            var_dump("Set up: Connected successfully"); 
+            echo "Set up: Connected successfully\n"; 
         } catch(PDOException $e) {
-            var_dump("Set up: Connection failed: " . $e->getMessage());
+            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
         }
-        echo "I set up once\n";
+        echo "Set up for User Account endpoints\n";
     }
 
     /*
@@ -56,18 +56,19 @@ class UserAccountEndpointsTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            var_dump("Set up: user Deleted");
+            echo "Set up: user Deleted\n";
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        var_dump("Set up: user Created");
+        echo "Set up: user Created\n";
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
-        echo "I set up many times\n";
+        echo "Set up for each User Account endpoints test\n";
     }
 
     // Tests
     public function testUpdateEmailApiBody() { 
+        echo "Update Email endpoint api body is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -92,6 +93,7 @@ class UserAccountEndpointsTest extends TestCase
     
 
     public function testUpdateEmailApiStatus() {
+        echo "Update Email endpoint api status is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -120,6 +122,7 @@ class UserAccountEndpointsTest extends TestCase
     
     // Update password
     public function testUpdatePasswordlApiBody() {
+        echo "Update Password endpoint api body is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -144,6 +147,7 @@ class UserAccountEndpointsTest extends TestCase
     
    
     public function testUpdatePasswordApiStatus() { 
+        echo "Update Password endpoint api status is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -172,6 +176,7 @@ class UserAccountEndpointsTest extends TestCase
     
     // Delete user 
     public function testDeleteUserApiBody() {
+        echo "Delete User endpoint api body is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -195,6 +200,7 @@ class UserAccountEndpointsTest extends TestCase
     
    
     public function testDeleteUserApiStatus() {
+        echo "Delete User endpoint api status is running...\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -224,7 +230,7 @@ class UserAccountEndpointsTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "I teardown once\n";
+        echo "Teardown for User Account endpoints\n";
     }
 
      /*
@@ -243,6 +249,6 @@ class UserAccountEndpointsTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "I teardown many times\n";
+        echo "Teardown for each User Account endpoints test\n";
     }
 }

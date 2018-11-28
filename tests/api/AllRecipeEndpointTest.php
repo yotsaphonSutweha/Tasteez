@@ -18,12 +18,12 @@ class AllRecipeEndpointTest extends TestCase
         $this->statusCode = 0;
         $this->expectedOutcome = 0;
         $this->curl = curl_init();
-        echo "I set up many times\n";
-        echo "This is all test";
+        echo "Set up for All Recipe endpoint\n";
     }
 
    
     public function testAllApiBody(){
+        echo "All Recipe endpoint api body is running...\n";
         $this->url  = "http://localhost:8080/api/meals/all";
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -36,6 +36,7 @@ class AllRecipeEndpointTest extends TestCase
 
     
     public function testAllApiStatus(){
+        echo "All Recipe endpoint api status is running...\n";
         $this->url  = "http://localhost:8080/api/meals/all";
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HEADER  , true); 
@@ -55,6 +56,6 @@ class AllRecipeEndpointTest extends TestCase
         $this->body = "";
         $this->url = "";
         $this->curl = null;
-        echo "I teardown many times\n";
+        echo "Teardown for All Recipe endpoint\n";
     }
 }
