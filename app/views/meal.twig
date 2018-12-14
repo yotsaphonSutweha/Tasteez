@@ -56,7 +56,20 @@
             <div class="add-comment__form" >
               <input type="hidden" name="meal_id" value="{{ meal.id }}">
               <textarea class="add-comment__input" name="comment" id="comment-message"></textarea>
-              <input class="button add-comment__submit" type="submit" name="" onclick="addComment()" value="Leave Comment">
+              
+
+              {% if loggedIn == true %}
+                <input 
+                  class="button add-comment__submit" 
+                  type="submit" 
+                  name="" 
+                  onclick="addComment({{ meal.id }})" 
+                  value="Leave Comment"
+                >
+              {% else %}
+                <button class="button add-comment__submit" onclick="location.href='/auth/login'"> Leave Comment </button>
+              {% endif %}
+
               <input class="meal-id" type="hidden" name="meal-id" value="{{ meal.id }}">
             </div>
 
@@ -115,7 +128,7 @@
         var message = document.getElementById("comment-message");
         console.log({{ meal.id }});
         console.log({{ meal.userID }});
-        console.log(message.value)
+        
         var url = '/api/meal/' + {{ meal.id }} + '/add-comment';
 
         var xhr = new XMLHttpRequest();
@@ -175,7 +188,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var res = JSON.parse(xhr.responseText);
-                console.log(res);
+                console.log(res.comments);
                 var allComments = ""
 
                 for(var i = 0; i < res.comments.length; i++) {
@@ -214,92 +227,7 @@
         };
         var data = JSON.stringify({ comment_id: id });
         xhr.send(data);
-
-
-        
-
-        /*var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("demo").innerHTML = this.responseText;
-          }
-        };
-      xhttp.open("GET", "xmlhttp_info.txt", true);
-      xhttp.send();
-
-        comment = document.getElementById("comments").innerHTML = "";
-      
-      */
-
-        /* $.ajax({
-          url: url,
-          type: 'DELETE',
-          success: function(data) {
-            allComments = ""
-            console.log(data)
-            data.comments.map(comment => {
-            
-            })
-          },
-          data: { comment_id: id },
-          contentType: 'application/json',
-          error: function() {
-            alert("error");
-          }
-        }); */
-        
-
-        /* $.post(url, { comment_id: id } )
-          .done(function(data) {
-            allComments = ""
-            console.log(data)
-            data.comments.map(comment => {
-
-             /* allComments+= `<div class="comment">
-                <div class="comment__header">
-                  <span class="comment__icon comment__icon--user">
-                    <i class="fas fa-user"></i>
-                  </span>
-                  <span class="comment__username">${comment.username}</span>
-                  <span class="comment__date">${comment.shortDate}</span>
-                </div>
-                <div class="comment__body">
-                  ${comment.comment}
-                </div>`
-              if (comment.user_id == {{ meal.userID }}) {
-                allComments+= `
-                <form action="/meal/{{ meal.id }}/delete-comment" method="POST">
-                  <input type="hidden" name="meal_id" value="{{ meal.id }}">
-                  <input type="hidden" name="comment_id" value="{{ comment.comment_id }}">
-                  <button
-                  type="submit"
-                  data-comment-id="{{ comment.comment_id }}"
-                  data-meal-id="{{ meal.id }}"
-                  title="Delete Comment"
-                  class="comment__button" href="/meals/favourites">
-                  <i class="fas fa-trash"></i>
-                </button>
-                </form>
-                `
-              }
-              allComments+=`</div>`
-              */
-           /* })
-            // $( "#comments" ).html("");
-            // $( "#comments" ).html(allComments);
-            // $('#comment-message').val("");
-
-          })
-          .fail(function() {
-            alert("error");
-          }) */
-
       }
 
       </script>
-
-      {# <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> #}
-      {# <script src="https://unpkg.com/axios/dist/axios.min.js"></script> #}
-      {# <script type="text/babel" src="/js/addComment.js" charset="utf-8"></script> #}
-      {# <script type="text/babel" src="/js/deleteComment.js" charset="utf-8"></script> #}
 {% endblock %}

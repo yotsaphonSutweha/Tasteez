@@ -20,7 +20,7 @@ class Auth
     $email = $data->email;
     $password = $data->password;
     if($auth->signIn($username, $email, $password)) {
-        return $response->withJson(array("message"=>"successfully logged in", "status-code" => "200"), 200);
+        return $response->withJson(array("message"=>"successfully logged in", "status-code" => "200", "args" => $longopts), 200);
 
     } else {
         return $response->withJson(array("message"=>"Invalid credentials", "status-code" => "400"), 400);

@@ -5,20 +5,11 @@ use Leafo\ScssPhp\Compiler;
 require '../vendor/autoload.php';
 require '../config.php';
 
-// Uncommnet to compile Sass
-// $scss = new Compiler();
-// $scss->setImportPaths('../app/sass/');
-// $css = $scss->compile(file_get_contents('../app/sass/index.scss'));
-// $css_file = './stylesheets/index.css';
-// $handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
-// fwrite($handle, $css);
-
 $dotenv = new Dotenv\Dotenv(__DIR__ . "/../");
 $dotenv->load();
 error_reporting(0);
 
 $app = new \Slim\App(['settings' => $config]);
-// $app->add(new \Slim\HttpCache\Cache('public', 86400));
 $container = $app->getContainer();
 
 

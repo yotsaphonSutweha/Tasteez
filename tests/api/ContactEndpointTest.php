@@ -23,12 +23,12 @@ class ContactEndpointTest extends TestCase
         $this->url = "";
         $this->expectedOutcome = 0;
         $this->statusCode = 0;
-        echo "Set up for Contact endpoint\n";
+        echo "I set up many times\n";
     }
 
-    // Tests
+   
     public function testContactApiBody(){
-        echo "Contact endpoint api body is running...\n";
+        echo "Running: Get body of contact API endpoint\n";
         $this->url  = "http://localhost:8080/api/contact";
         $this->data = json_encode(array("email" => "test@test.com", "name" => "test", "message" => "test"));
         $this->curl = curl_init();  
@@ -45,7 +45,7 @@ class ContactEndpointTest extends TestCase
 
     
     public function testContactApiStatus(){
-        echo "Contact endpoint api status is running...\n";
+        echo "Running: Get status of contact API endpoint\n";
         $this->url  = "http://localhost:8080/api/contact";
         $this->data = json_encode(array("email" => "test@test.com", "name" => "test", "message" => "test"));
         $this->curl = curl_init();  
@@ -65,7 +65,7 @@ class ContactEndpointTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "Teardown for Contact endpoint\n";
+        echo "I teardown once\n";
     }
 
      /*
@@ -82,6 +82,6 @@ class ContactEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "Teardown for each Contact endpoint test\n";
+        echo "I teardown many times\n";
     }
 }

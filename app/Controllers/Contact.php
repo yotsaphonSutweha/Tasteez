@@ -12,4 +12,5 @@ class Contact extends Controller {
       "loggedIn" => $user->isLoggedIn()
     ]);
   }
+
 }

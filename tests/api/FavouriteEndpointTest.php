@@ -27,11 +27,11 @@ class FavouriteEndpointTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            echo "Set up: Connected successfully\n"; 
+            var_dump("Set up: Connected successfully"); 
         } catch(PDOException $e) {
-            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
+            var_dump("Set up: Connection failed: " . $e->getMessage());
         }
-        echo "Set up for Favourite endpoint\n";
+        echo "I set up once\n";
     }
 
     /*
@@ -56,22 +56,23 @@ class FavouriteEndpointTest extends TestCase
 
         $previousUser = $this->user->findByName("test", "test@test.com");
         $previousUserID = (int) $previousUser["id"];
-
+        echo " "  . $previousUserID . " ";
+        $this->user->deleteUser(90);
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            echo "Set up: user Deleted\n";
+            var_dump("Set up: user Deleted");
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        echo "Set up: user Created\n";
+        var_dump("Set up: user Created");
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
         echo "I set up many times\n";
     }
 
-    // Tests
+   
     public function testFavouriteApiBody() {
-        echo "Favourite endpoint api body is running...\n";
+        echo "Running: Get body of add favorite API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -94,7 +95,7 @@ class FavouriteEndpointTest extends TestCase
 
     
     public function testFavouriteApiStatus(){
-        echo "Favourite endpoint api status is running...\n";
+        echo "Running: Get status of add favorite API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -121,7 +122,7 @@ class FavouriteEndpointTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "Teardown for Favourite endpoint\n";
+        echo "I teardown once\n";
     }
 
      /*
@@ -142,6 +143,6 @@ class FavouriteEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "Teardown for each Favourite endpoint test\n";
+        echo "I teardown many times\n";
     }
 }

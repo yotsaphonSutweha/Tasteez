@@ -1,24 +1,6 @@
 {% extends '/templates/default.twig' %}
 
 {% block content %}
-    <style>
-    .privacy-content {
-        margin-top: 60px;
-        padding: 5%;
-        width: 1000px;
-        margin: auto; 
-    }
-    @media screen and (min-width: 700px) {
-    .privacy-content {
-        margin-left: 106px;
-        padding: 5%; } }
-    .privacy-content.no-sidebar {
-        margin-top: 60px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-        max-width: 1000px; }
-    </style>
   {% include '/partials/header.twig' %}
   <main class="privacy-content no-sidebar">
     {% block main %}{% endblock %}

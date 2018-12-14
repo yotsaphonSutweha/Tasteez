@@ -27,11 +27,11 @@ class LikeDislikeEndpointsTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            echo "Set up: Connected successfully\n"; 
+            var_dump("Set up: Connected successfully"); 
         } catch(PDOException $e) {
-            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
+            var_dump("Set up: Connection failed: " . $e->getMessage());
         }
-        echo "Set up for Like & Dislike endpoints\n";
+        echo "I set up once\n";
     }
 
     /*
@@ -58,19 +58,19 @@ class LikeDislikeEndpointsTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            echo "Set up: user Deleted\n";
+            var_dump("Set up: user Deleted");
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        echo "Set up: user Created\n";
+        var_dump("Set up: user Created");
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
-        echo "Set up for each Like & Dislike endpoints test\n";
+        echo "I set up many times\n";
     }
 
-    // Tests
+  
     public function testLikeRecipeApiBody() {
-        echo "Like endpoint api body is running...\n";
+        echo "Running: Get body of like recipe API endpoint\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
@@ -92,7 +92,7 @@ class LikeDislikeEndpointsTest extends TestCase
     
     
     public function testLikeRecipeApiStatus() {
-        echo "Like endpoint api status is running...\n";
+        echo "Running: Get status of like recipe API endpoint\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
@@ -114,9 +114,9 @@ class LikeDislikeEndpointsTest extends TestCase
     }
     
     
-    // Dislike 
+   
     public function testDislikeRecipeApiBody() {
-        echo "Dislike endpoint api body is running...\n";
+        echo "Running: Get body of dislike recipe API endpoint\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
@@ -133,11 +133,12 @@ class LikeDislikeEndpointsTest extends TestCase
         curl_setopt($this->curl, CURLOPT_URL, $this->url );
         $this->body = curl_exec($this->curl);
         curl_close($this->curl);
+        var_dump($this->body);
         $this->assertInternalType('array', json_decode($this->body));
     }
      
     public function testDislikeRecipeApiStatus() {
-        echo "Dislike endpoint api status is running...\n";
+        echo "Running: Get status of dislike recipe API endpoint\n";
         $this->data = json_encode(array("email" => "test@test.com", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->data);
@@ -165,10 +166,10 @@ class LikeDislikeEndpointsTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "Teardown for Like & Dislike endpoints\n";
+        echo "I teardown once\n";
     }
 
-    /*
+     /*
     * @after
     */
     public function tearDown() {
@@ -185,6 +186,6 @@ class LikeDislikeEndpointsTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "Teardown for each Like & Dislike endpoints test\n";
+        echo "I teardown many times\n";
     }
 }

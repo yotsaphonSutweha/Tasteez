@@ -26,11 +26,11 @@ class SignUpEndpointTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            echo "Set up: Connected successfully\n"; 
+            var_dump("Set up: Connected successfully"); 
         } catch(PDOException $e) {
-            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
+            var_dump("Set up: Connection failed: " . $e->getMessage());
         }
-        echo "Set up for Sign Up endpoint\n";
+        echo "I set up once\n";
     }
 
     /*
@@ -56,18 +56,18 @@ class SignUpEndpointTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            echo "Set up: user Deleted\n";
+            var_dump("Set up: user Deleted");
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        echo "Set up: user Created\n";
+        var_dump("Set up: user Created");
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
-        echo "Set up for each Sign Up endpoint test\n";
+        echo "I set up many times\n";
     }
 
     public function testSignUpApiBody() {
-        echo "Sign Up endpoint api body is running...\n";
+        echo "Running: Get body of sign up API endpoint\n";
         $this->user = new Tasteez\Models\User(self::$conn);
         $this->user->deleteUser($this->id);
         $this->data = json_encode(array("username" => "test", "email" => "test", "password" => "test", "confirmPassword" => "test"));
@@ -86,7 +86,7 @@ class SignUpEndpointTest extends TestCase
     }
 
     public function testSignUpApiStatus() {
-        echo "Sign Up endpoint api status is running...\n";
+        echo "Running: Get status of sign up API endpoint\n";
         $this->user = new Tasteez\Models\User(self::$conn);
         $this->user->deleteUser($this->id);
         $this->data = json_encode(array("username" => "test", "email" => "test", "password" => "test", "confirmPassword" => "test"));
@@ -112,7 +112,7 @@ class SignUpEndpointTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "Teardown for Sign Up endpoint\n";
+        echo "I teardown once\n";
     }
 
      /*
@@ -130,6 +130,6 @@ class SignUpEndpointTest extends TestCase
         $this->data = null;
         $this->user = null;
         $this->auth = null;
-        echo "Teardown for each Sign Up endpoint test\n";
+        echo "I teardown many times\n";
     }
 }

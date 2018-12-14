@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 class AllRecipeEndpointTest extends TestCase
 {
-    // use self:: syntax for static variables
+ 
     private $curl;
     private $body;
     private $url;
@@ -18,12 +18,12 @@ class AllRecipeEndpointTest extends TestCase
         $this->statusCode = 0;
         $this->expectedOutcome = 0;
         $this->curl = curl_init();
-        echo "Set up for All Recipe endpoint\n";
+        echo "I set up many times\n";
     }
 
    
     public function testAllApiBody(){
-        echo "All Recipe endpoint api body is running...\n";
+        echo "Running: Get body of all meals API endpoint\n";
         $this->url  = "http://localhost:8080/api/meals/all";
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -36,7 +36,7 @@ class AllRecipeEndpointTest extends TestCase
 
     
     public function testAllApiStatus(){
-        echo "All Recipe endpoint api status is running...\n";
+        echo "Running: Get status of all meals API endpoint\n";
         $this->url  = "http://localhost:8080/api/meals/all";
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HEADER  , true); 
@@ -49,13 +49,13 @@ class AllRecipeEndpointTest extends TestCase
         $this->assertEquals($statusCode,  $expectedOutcome);
     }
     
-     /*
+    /*
     * @after
     */
     public function tearDown() {
         $this->body = "";
         $this->url = "";
         $this->curl = null;
-        echo "Teardown for All Recipe endpoint\n";
+        echo "I teardown many times\n";
     }
 }

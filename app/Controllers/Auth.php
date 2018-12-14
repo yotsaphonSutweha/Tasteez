@@ -1,4 +1,5 @@
 <?php
+
 namespace Tasteez\Controllers;
 use \Tasteez\Models\User;
 use \Tasteez\Models\Auth as AuthModel;
@@ -16,7 +17,9 @@ class Auth extends Controller
     $this->view = $container->view;
     $this->user = new User($container->db);
   }
+
   public function getLogin($request, $response) {
+
     if ($this->user->isLoggedIn()) {
       return $response->withRedirect('/');
     }
@@ -24,7 +27,16 @@ class Auth extends Controller
       "loggedIn" => $this->user->isLoggedIn()
     ]);
   }
-  
+
+  public function getRegister($request, $response) {
+    if ($this->user->isLoggedIn()) {
+      return $response->withRedirect('/');
+    }
+    return $this->view->render($response, 'register.twig', [
+      "loggedIn" => $this->user->isLoggedIn()
+    ]);
+  }
+
   public function postLogin($request, $response) {
     $user = $this->user;
 
@@ -40,38 +52,16 @@ class Auth extends Controller
     $username = trim($username);
     $email = trim($email);
     $password = trim($password);
-    
-    $userDetails = $user->findByName($username, $email);
 
-
-    if (!$user->exists($username, $email) || !(password_verify($password, $userDetails['password']))) {
+    $authModel = new AuthModel($this->db);
+    if($authModel->signIn($email, $email, $password)) {
+      return $response->withRedirect('/');
+    } else {
       return $this->view->render($response, 'login.twig', [
-        "error" => "Invalid login credentials",
-        "loggedIn" => $this->user->isLoggedIn()
-      ]);
+              "error" => "Invalid login credentials",
+              "loggedIn" => $this->user->isLoggedIn()
+            ]);
     }
-
-    $token = array(
-      "id" => $userDetails['id'],
-      "username" => $userDetails['username'],
-      "token" => password_hash($userDetails['id'] . $userDetails['username'], PASSWORD_BCRYPT)
-    );
-
-    setcookie('cookie', json_encode($token), time()+3600, "/");
-
-    return $response->withRedirect('/');
-
-  }
-
-
-  public function getRegister($request, $response) {
-    if ($this->user->isLoggedIn()) {
-      return $response->withRedirect('/', [
-        "loggedIn" => $this->user->isLoggedIn()
-      ]);
-    }
-
-    return $this->view->render($response, 'register.twig');
   }
 
   public function postRegister($request, $response) {
@@ -106,18 +96,14 @@ class Auth extends Controller
       array_push($errors, "You must agree to the applications terms and conditions");
     }
 
-    if (count($errors) > 0) {
-      return $this->view->render($response, 'register.twig', ["errors" => $errors]);
-    }
-
     $user = new \Tasteez\Models\User($this->db);
 
     if ($user->exists($username, $email)) {
-      array_push($errors, "User with that name already existsts");
+      array_push($errors, "User with that username or email already existsts");
     }
 
     if (count($errors) > 0) {
-      return $this->view->render($response, 'register.twig', ["errors" => "error"]);
+      return $this->view->render($response, 'register.twig', ["errors" => $errors]);
 
     } else {
       $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -126,11 +112,15 @@ class Auth extends Controller
     }
    
   }
-  
 
   public function logout($request, $response) {
-    unset($_COOKIE['cookie']);
-    setcookie('cookie', '', time()-3600, "/");
+
+    $authModel = new AuthModel($this->db);
+
+    if ($this->user->isLoggedIn()) {
+      $authModel->logout();
+      return $response->withRedirect('/');
+    }
     return $response->withRedirect('/auth/login');
   }
 

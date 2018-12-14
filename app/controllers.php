@@ -1,4 +1,9 @@
 <?php
+
+$container['TestAPIController'] = function($container) {
+  return new \Tasteez\Controllers\Test($container);
+};
+
 // =============================================================================
 // API Controllers
 // =============================================================================
@@ -32,6 +37,10 @@ $container['AuthController'] = function($container) {
   return new \Tasteez\Controllers\Auth($container);
 };
 
+$container['AccountController'] = function($container) {
+  return new \Tasteez\Controllers\Account($container);
+};
+
 $container['HomeController'] = function($container) {
   return new \Tasteez\Controllers\Home($container);
 };
@@ -39,11 +48,6 @@ $container['HomeController'] = function($container) {
 $container['SearchController'] = function($container) {
   return new \Tasteez\Controllers\Search($container);
 };
-
-$container['AccountController'] = function($container) {
-  return new \Tasteez\Controllers\Account($container);
-};
-
 
 $container['ContactController'] = function($container) {
   return new \Tasteez\Controllers\Contact($container);

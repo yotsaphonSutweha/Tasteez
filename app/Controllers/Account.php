@@ -21,9 +21,12 @@ class Account extends Controller
       );
     } else {
       return $response->withRedirect('/auth/login');
-    } 
+    }
+
+    
   }
   
+
   public function postUpdateEmail($request, $response) { 
     $body = $request->getParsedBody();
     $oldEmail = $this->clean($body['oldEmail']);
@@ -105,5 +108,4 @@ class Account extends Controller
   public function clean($string) {
     return preg_replace('/[\;\(\)\<\>\/\*]/', '', $string); 
   }
-
 }

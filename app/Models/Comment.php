@@ -81,7 +81,4 @@ class Comment extends Model {
     return $stmt;
   }
 
-  
-
-
 }

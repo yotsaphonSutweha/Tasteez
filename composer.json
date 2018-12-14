@@ -7,7 +7,11 @@
 
     },
     "scripts": {
-      "start": "php -S localhost:8080 -t public"
+      "start": "php -S localhost:8080 -t public",
+      "seed": "npm install && node ./scrape/scrape.js && php ./seed.php",
+      "start-test": "php -S localhost:8080 -t public-test",
+      "test": "./vendor/bin/phpunit"
+
     },
     "config": {
       "process-timeout": 0
@@ -26,6 +30,7 @@
         "vlucas/phpdotenv": "^2.5",
         "slim/twig-view": "^2.4",
         "leafo/scssphp": "^0.7.7",
+        "slim/http-cache": "^0.4.0",
         "phpmailer/phpmailer": "^6.0",
         "phpunit/phpunit": "^7.4"
     }

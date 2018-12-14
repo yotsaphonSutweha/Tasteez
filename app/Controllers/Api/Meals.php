@@ -1,9 +1,18 @@
 <?php
 
 namespace Tasteez\Controllers\Api;
+use Tasteez\Models\User;
+use Slim\Exception\MethodNotAllowedException;
 
-class Meals extends Controller
-{
+class Meals extends Controller {
+
+  protected $user;
+  protected $container;
+
+  function __construct($container) {
+    $this->user = new User($container->db);
+    $this->container = $container;
+  }
 
   public function all($request, $response) {
     $meal = new \Tasteez\Models\Meal($this->container->db);
@@ -15,21 +24,21 @@ class Meals extends Controller
     return $response->withJson($meal->popular());
   }
 
-  public function search($request, $response, $args) {
-    $meal = new \Tasteez\Models\Meal($this->container->db);
-    $searchTerm = $args['searchTerm'];
-    return $response->withJson($meal->search($searchTerm));
-  }
-
   public function categories($request, $response) {
-    $meal = new \Tasteez\Models\Meal($this->container->db);
-    return $response->withJson($meal->categories());
+    $meal = new \Tasteez\Models\Category($this->container->db);
+    return $response->withJson($meal->getAll());
   }
 
   public function category($request, $response, $args) {
     $meal = new \Tasteez\Models\Meal($this->container->db);
     $category = $args['name'];
     return $response->withJson($meal->getMealsByCategory($category));
+  }
+
+  public function search($request, $response, $args) {
+    $meal = new \Tasteez\Models\Meal($this->container->db);
+    $searchTerm = $args['searchTerm'];
+    return $response->withJson($meal->search($searchTerm));
   }
 
   public function recommended($request, $response) {
@@ -44,4 +53,5 @@ class Meals extends Controller
 
     
   }
+
 }

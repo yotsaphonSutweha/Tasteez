@@ -28,11 +28,11 @@ class CommentEndpointsTest extends TestCase
             self::$conn = new PDO("mysql:host=".$DB_HOST.";"."dbname=".$DB_NAME.";charset=UTF8",$DB_USER,$DB_PASS);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            echo "Set up: Connected successfully\n"; 
+            var_dump("Set up: Connected successfully"); 
         } catch(PDOException $e) {
-            echo "Set up: Connection failed: " . $e->getMessage() . "\n";
+            var_dump("Set up: Connection failed: " . $e->getMessage());
         }
-        echo "Set up for Comment endpoints\n";
+        echo "I set up once\n";
     }
 
     /*
@@ -59,20 +59,19 @@ class CommentEndpointsTest extends TestCase
 
         if($previousUser != null) {
             $this->user->deleteUser($previousUserID);
-            echo "Set up: user Deleted\n";
+            var_dump("Set up: user Deleted");
         }
 
         $this->auth->signUp("test", "test@test.com", "test", "test");
-        echo "Set up: user Created\n";
+        var_dump("Set up: user Created");
         $this->testUser = $this->user->findByName("test", "test");
         $this->id = (int) $this->testUser["id"];
-        echo "Set up for each Comment endpoints test\n";
+        echo "I set up many times\n";
     }
 
-        // Tests
-    // Add comment 
+  
     public function testAddCommentApiBody() {
-        echo "Add Comment endpoint api body is running...\n";
+        echo "Running: Get body of add comment API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -96,7 +95,7 @@ class CommentEndpointsTest extends TestCase
 
 
     public function testAddCommentApiStatus(){
-        echo "Add Comment endpoint api status is running...\n";
+        echo "Running: Get status of add comment API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -121,10 +120,8 @@ class CommentEndpointsTest extends TestCase
     }
 
 
-
-    // Delete comment
     public function testDeleteCommentApiBody() {
-        echo "Delete Comment endpoint api body is running...\n";
+        echo "Running: Get body of delete comment API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -158,7 +155,7 @@ class CommentEndpointsTest extends TestCase
 
 
     public function testDeleteCommentApiStatus(){
-        echo "Delete Comment endpoint api status is running...\n";
+        echo "Running: Get status of delete comment API endpoint\n";
         $this->data = json_encode(array("username" => "test", "password" => "test"));
         $this->url = "http://localhost:8080/api/auth/login";
         $this->curl = curl_init();  
@@ -197,7 +194,7 @@ class CommentEndpointsTest extends TestCase
     */
     public static function tearDownAfterClass() {
         self::$conn = null;
-        echo "Teardown for Comment endpoints\n";
+        echo "I teardown once\n";
     }
 
      /*
@@ -218,6 +215,6 @@ class CommentEndpointsTest extends TestCase
         $this->auth = null;
         $this->comment = null;
         $this->comment_id = 0;
-        echo "Teardown for each Comment endpoints test\n";
+        echo "I teardown many times\n";
     }
 }

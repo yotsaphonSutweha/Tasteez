@@ -2,9 +2,6 @@
 
 namespace Tasteez\Controllers\Api;
 
-/**
- *
- */
 class Controller
 {
   protected $container;

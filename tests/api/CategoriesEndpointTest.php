@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 class CategoriesEndpointTest extends TestCase
 {
-    // use self:: syntax for static variables
+   
     private $curl;
     private $body;
     private $url;
@@ -18,11 +18,11 @@ class CategoriesEndpointTest extends TestCase
         $this->statusCode = 0;
         $this->expectedOutcome = 0;
         $this->curl = curl_init();
-        echo "Set up for Categories endpoint\n";
+        echo "I set up many times\n";
     }
 
     public function testCategoriesApiBody(){
-        echo "Categories endpoint api body is running...\n";
+        echo "Running: Get body of categories API endpoint\n";
         $this->url  = "http://localhost:8080/api/meals/categories";
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -35,7 +35,7 @@ class CategoriesEndpointTest extends TestCase
 
     
     public function testCategoriesApiStatus(){
-        echo "Categories endpoint api status is running...\n";
+        echo "Running: Get status of categories API endpoint\n";
         $this->url  = "http://localhost:8080/api/meals/categories";
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_HEADER  , true); 
@@ -55,6 +55,6 @@ class CategoriesEndpointTest extends TestCase
         $this->body = "";
         $this->url = "";
         $this->curl = null;
-        echo "Teardown for Categories endpoint\n";
+        echo "I teardown many times\n";
     }
 }

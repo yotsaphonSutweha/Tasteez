@@ -1,5 +1,7 @@
 <?php
 
+$app->get('/test', 'TestAPIController:test');
+
 // =============================================================================
 // API routes
 // =============================================================================
@@ -11,7 +13,7 @@ $app->group('/api', function() {
     $this->get('/popular', 'MealsAPIController:popular');
     $this->get('/recommended', 'MealsAPIController:recommended');
     $this->get('/categories', 'MealsAPIController:categories');
-    $this->get('/categories/{id}', 'MealsAPIController:category');
+    $this->get('/categories/{name}', 'MealsAPIController:category');
     $this->get('/search/{searchTerm}', 'MealsAPIController:search');
   });
 
@@ -20,10 +22,15 @@ $app->group('/api', function() {
     $this->post('/add-favourite', 'MealAPIController:favourites');
     $this->post('/add-comment', 'MealAPIController:addComment');
     $this->delete('/delete-comment', 'MealAPIController:deleteComment');
-    // $this->get('/comments', 'MealAPIController:removeComment');
     $this->post('/like', 'MealAPIController:likeMeal');
     $this->delete('/dislike', 'MealAPIController:dislikeMeal');
   });
+
+
+  // =============================================================================
+  // Don't remove -Josh
+  // =============================================================================
+
 
   $this->group('/auth', function() {
     $this->post('/login', 'AuthAPIController:login');
@@ -32,7 +39,11 @@ $app->group('/api', function() {
   });
 
   $this->group('/user', function() {
-    $this->get('/favorites', 'UserAPIController:getFavorites');
+    $this->group('/favorites', function() {
+      $this->post('/', 'UserAPIController:getFavorites');
+      $this->post('/add', 'UserAPIController:getFavorites');
+      $this->delete('/delete', 'UserAPIController:getFavorites');
+    });
     $this->put('/update-password', 'UserAPIController:updatePassword');
     $this->put('/update-email', 'UserAPIController:updateEmail');
     $this->delete('/delete-account/{userId}', 'UserAPIController:deleteUser');
@@ -54,14 +65,19 @@ $app->get('/privacy-policy', 'PrivacyPolicyController');
 $app->get('/search', 'SearchController');
 
 $app->group('/auth', function() {
-  $this->get('/register', 'AuthController:getRegister');
-  $this->post('/register', 'AuthController:postRegister');
   $this->get('/login', 'AuthController:getLogin');
   $this->post('/login', 'AuthController:postLogin');
+  $this->get('/register', 'AuthController:getRegister');
+  $this->post('/register', 'AuthController:postRegister');
   $this->get('/logout', 'AuthController:logout');
 });
-//
-// $app->get('/auth/register', 'AuthAPIController:getRegister');
+
+$app->group('/user', function() {
+  $this->get('/account', 'AccountController:getAccount');
+  $this->post('/update-email', 'AccountController:postUpdateEmail');
+  $this->post('/update-password', 'AccountController:postUpdatePassword');
+  $this->post('/delete-account/{userId}', 'AccountController:postDeleteAccount');
+});
 
 $app->group('/meals', function() {
   $this->get('/most-popular', 'MealsController:mostPopular');
@@ -75,7 +91,6 @@ $app->group('/meals', function() {
 });
 
 $app->group('/meal/{id}', function() {
-  // NOTE: HTML forms only support the http methods GET and POST
   $this->get('' , 'MealController:meal');
   $this->post('/add-comment' , 'MealController:addComment');
   $this->post('/delete-comment' , 'MealController:deleteComment');
@@ -83,9 +98,4 @@ $app->group('/meal/{id}', function() {
   $this->post('/dislike' , 'MealController:dislikeMeal');
   $this->post('/add-favourite' , 'MealController:addToFavourites');
   $this->post('/delete-favourite' , 'MealController:removeFromFavourites');
-});
-
-$app->group('/user', function() {
-  $this->get('/account', 'AccountController:getAccount');
-  $this->post('/delete-account/{userId}', 'AccountController:postDeleteAccount');
 });

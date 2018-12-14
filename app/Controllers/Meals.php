@@ -2,7 +2,7 @@
 
 namespace Tasteez\Controllers;
 
-use \Tasteez\Models\Meal as MealModel;
+use \Tasteez\Models\Meal;
 use Tasteez\Models\User;
 use Tasteez\Models\Category;
 
@@ -13,12 +13,12 @@ class Meals extends Controller {
 
   function __construct($container) {
     $this->container = $container;
-    $this->meal = new MealModel($container->db);
+    $this->meal = new Meal($container->db);
     $this->view = $container->view;
     $this->user = new User($container->db);
-    
+    $this->db = $container->db;
   }
- 
+
   public function meal($request, $response, $args) {
     $userID = $this->user->getID();
     $mealDetails = $this->meal->getMeal($args['id'], $userID);
@@ -29,7 +29,6 @@ class Meals extends Controller {
       "loggedIn" => $this->user->isLoggedIn(),
     ]);
   }
-
 
   public function mostPopular($request, $response, $args) {
     $meals = $this->meal->popular();
@@ -64,35 +63,6 @@ class Meals extends Controller {
 
   }
 
-  public function category($request, $response, $args) {
-    $name = $args['name'];
-    $categoriesModel = new Category($this->container->db);
-    $categories = $categoriesModel->getAll();
-    $meals = $this->meal->getMealsByCategory($name);
-    return $this->view->render($response, 'category.twig', [
-      "meals" => $meals, "category" => $name, "loggedIn" => $this->user->isLoggedIn()
-    ]);
-  }
-
-  public function categories($request, $response, $args) {
-    $categories = $this->meal->categories();
-    return $this->view->render($response, 'categories.twig', [
-      "categories" => $categories,
-      "loggedIn" => $this->user->isLoggedIn()
-    ]);
-  }
-
-  public function search($request, $response) {
-    if (isset($_GET["query"])) {
-      $query = $request->getQueryParam("query");
-      $query = preg_replace('/[\;\(\)\<\>\/\*]/', ' ', $query);
-      $meals = $this->meal->search($query, null, null);
-      return $this->view->render($response, 'search.twig', ["meals" => $meals]);
-    } else {
-      return $this->view->render($response, 'search.twig');
-    }
-  }
-
   public function recommended($request, $response) {
 
     if($this->user->isLoggedIn()) {
@@ -109,4 +79,41 @@ class Meals extends Controller {
 
     
   }
+
+  public function category($request, $response, $args) {
+    $name = $args['name'];
+    $categoriesModel = new Category($this->container->db);
+    $categories = $categoriesModel->getAll();
+    $meals = $this->meal->getMealsByCategory($name);
+    return $this->view->render($response, 'category.twig', [
+      "meals" => $meals, "category" => $name, "loggedIn" => $this->user->isLoggedIn()
+    ]);
+  }
+
+  public function categories($request, $response, $args) {
+    $categoriesModel = new Category($this->container->db);
+    $categories = $categoriesModel->getAll();
+    return $this->view->render($response, 'categories.twig', [
+      "categories" => $categories,
+      "loggedIn" => $this->user->isLoggedIn()
+    ]);
+  }
+
+  public function search($request, $response) {
+    if (isset($_GET["query"])) {
+      $query = $request->getQueryParam("query");
+      $query = preg_replace('/[\;\(\)\<\>\/\*]/', ' ', $query);
+      $meals = $this->meal->search($query, null, null);
+      return $this->view->render($response, 'search.twig', [
+        "meals" => $meals,
+        "loggedIn" => $this->user->isLoggedIn()
+        ]);
+    } else {
+      return $this->view->render($response, 'search.twig', [
+        "loggedIn" => $this->user->isLoggedIn()
+        ]);
+    }
+  }
+
+
 }
