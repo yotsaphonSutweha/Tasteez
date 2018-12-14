@@ -28,7 +28,9 @@ Run the Applications test suite:
 
 Tasteez application URL: https://tasteez.herokuapp.com/
 
-GitHub URL: https://github.com/yotsaphonSutweha/Tasteez
+GitHub Repository URL Containing Project Source Code: https://github.com/yotsaphonSutweha/Tasteez
+
+GitHub Repository URL Containing All Files: https://github.com/joshuacassidy/Team-Apple-Tasteez-All-Project-Files
 
 YouTube URL for the video presentation:
 https://www.youtube.com/watch?v=KSZUE62kUTw&feature=youtu.be&fbclid=IwAR3k3ra4age-84GLfq3oeoOz3DZCLI4Z7Zwk0kd_tUWk1xDSbqtu85-TCok
