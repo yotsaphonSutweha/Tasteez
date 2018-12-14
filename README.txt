@@ -40,6 +40,7 @@ One drive URL for the video presentation:
 https://studentncirl-my.sharepoint.com/:f:/g/personal/x16472486_student_ncirl_ie/EpiBPctiFB1Lk2IKDqH2YGEBJmKJ2BHekTDwTUn02pc67w?e=9UIugc
 
 Sample user for Tasteez (You can also register on the application): 
+- Username: user
 - Email: user@gmail.com
 - Password: 12345678
 
