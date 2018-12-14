@@ -48,7 +48,7 @@ Gmail account for Tasteez email:
 - Email: contact.tasteez@gmail.com
 - Password: madmanlar1994
 
-Note: There is no need to run SQL or seed scripts on db4free.net and ClearDB as these products are database as a service applications thus they are already populated with the appropiate data needed to run and test the application.
+Note: There is no need to run SQL or seed scripts on db4free.net and ClearDB as these products are database as a service applications thus they are already populated with the appropriate data needed to run and test the application.
 
 db4free.net test database login:
 - Database url: https://db4free.net/phpMyAdmin/
